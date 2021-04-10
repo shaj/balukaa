@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "balukaa"
+version = "0.1.0"
+description = "BaluKaa"
+authors = ["ShajTester <kolobrod2002@yandex.ru>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Django = "^3.2"
+django-debug-toolbar-django13 = "^0.8.4"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
