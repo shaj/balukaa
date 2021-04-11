@@ -11,7 +11,7 @@ class Account(models.Model):
         return f'Account number {self.number} {self.name}'
 
     class Meta:
-        db_table = "accounts"
+        # db_table = "accounts"
         verbose_name = "Счет"
         verbose_name_plural = "План счетов"
 
@@ -19,8 +19,8 @@ class Account(models.Model):
 class Entry(models.Model):
     name = models.CharField(max_length=128)
     date = models.DateField()
-    entryType = models.EnumField(["Перетекание", "Увеличение", "Уменьшение"])
-    summ = models.DecimalField()
+    # entryType = models.EnumField(["Перетекание", "Увеличение", "Уменьшение"])
+    summ = models.DecimalField(max_digits=10, decimal_places=2)
     is_enter = models.BooleanField()
     created_at = models.DateTimeField()
     updates_at = models.DateTimeField()
@@ -29,6 +29,6 @@ class Entry(models.Model):
     #     return f''
 
     class Meta:
-        db_table = "entries"
+        # db_table = "entries"
         verbose_name = "Проводка"
         verbose_name_plural = "Бухгалтерские проводки"
