@@ -3,12 +3,12 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-        <h1>Balukaa index</h1>
-        {% if tasks %}
-            {% for el in tasks %}
+        <h1>Бухгалтерские проводки</h1>
+        {% if entries %}
+            {% for el in entries %}
                 <div class="alert alert-warning mt-2">
-                    <h3>{{ el.title }}</h3>
-                    <p>{{ el.task }}</p>
+                    <h3>{{ el.date }}</h3>
+                    <p>{{ el }}</p>
                 </div>
             {% endfor %}
         {% else %}

@@ -2,16 +2,15 @@ from django.db import models
 
 
 class Account(models.Model):
-    number = models.PositiveIntegerField()
+    number = models.PositiveIntegerField(unique=True)
     name = models.CharField(max_length=128)
     fullName = models.CharField(max_length=256)
-    is_active = models.BooleanField()
+    is_active = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'Account number {self.number} {self.name}'
+        return f'Account {self.number} {self.name}'
 
     class Meta:
-        # db_table = "accounts"
         verbose_name = "Счет"
         verbose_name_plural = "План счетов"
 
@@ -25,10 +24,9 @@ class Entry(models.Model):
     created_at = models.DateTimeField()
     updates_at = models.DateTimeField()
 
-    # def __str__(self):
-    #     return f''
+    def __str__(self):
+        return f'Проводка {self.name} {self.summ} {self.date}'
 
     class Meta:
-        # db_table = "entries"
         verbose_name = "Проводка"
         verbose_name_plural = "Бухгалтерские проводки"

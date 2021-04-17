@@ -3,7 +3,7 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-        <h1>Balukaa index</h1>
+        <h1>Main example index</h1>
         {% if tasks %}
             {% for el in tasks %}
                 <div class="alert alert-warning mt-2">
@@ -12,6 +12,6 @@
                 </div>
             {% endfor %}
         {% else %}
-            <p>Нет записей</p>
+            <p>Нет задач</p>
         {% endif %}
 {% endblock %}

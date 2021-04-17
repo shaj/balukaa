@@ -1,0 +1,20 @@
+{% extends 'ledger/base.html' %}
+
+{% block title %}Редактирование плана счетов{% endblock %}
+
+{% block content %}
+        <h1>План счетов</h1>
+        <div class="container">
+            Список планов счетов.
+        </div>
+        {% if accounts %}
+            {% for el in acccounts %}
+                <div class="alert alert-note mt-2">
+                    <h3>{{ el.number }}</h3>
+                    <p>{{ el.name }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Нет записей</p>
+        {% endif %}
+{% endblock %}
