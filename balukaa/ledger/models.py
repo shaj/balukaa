@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class Account(models.Model):
@@ -16,9 +17,25 @@ class Account(models.Model):
 
 
 class Entry(models.Model):
+
+    class EntryType(models.TextChoices):
+        """
+        Отсюда:
+        https://docs.djangoproject.com/en/3.0/ref/models/fields/#enumeration-types
+        """
+        MOVE = '+-', _('Перетекание')
+        INCREASE = '++', _('Увеличение')
+        DECREASE = '--', _('Уменьшение')
+
     name = models.CharField(max_length=128)
     date = models.DateField()
-    # entryType = models.EnumField(["Перетекание", "Увеличение", "Уменьшение"])
+    fAccount = models.ForeignKey(Account, on_delete=models.SET_NULL, blank=True, null=True)
+    lAccount = models.ForeignKey(Account, on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
+    entryType = models.CharField(
+        max_length=2,
+        choices=EntryType.choices,
+        default=EntryType.INCREASE,
+    )
     summ = models.DecimalField(max_digits=10, decimal_places=2)
     is_enter = models.BooleanField()
     created_at = models.DateTimeField()
