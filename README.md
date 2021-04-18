@@ -8,3 +8,40 @@
 Как это и было во времена Фра Лука Бартоломео де Пачоли, основателя управленческого бухгалтерского учета.*
 
 
+## TODO
+
+1. Основные вьюшки на базе классов
+2. Пользователи и права
+
+
+## Развертывание окружения для разработки
+
+1. Создание виртуального окружения
+
+```shell
+python3 -m venv env
+source env/bin/activate
+pip install poetry
+poetry install
+```
+
+2. Создание базы
+
+```shell
+cd balukaa
+python manage.py migrate
+python manage.py createsuperuser
+   ...
+```
+
+3. Заполнение базы тестовыми значениями
+
+```shell
+python manage.py fill_db
+```
+
+4. Запуск сервера для разработки
+
+```shell
+python manage.py runserver
+```
