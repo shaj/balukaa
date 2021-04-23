@@ -1,8 +1,9 @@
 
 from django.urls import path
-from . import views
+from .views import EntriesListView, AccountsListView, MoviListView
 
 urlpatterns = [
-    path('', views.main, name='main'),
-    path('account/', views.account, name='account'),
+    path('', EntriesListView.as_view(), name='main'),
+    path('account/', AccountsListView.as_view(), name='account'),
+    path('move/', MoviListView.as_view(), name='move'),
 ]

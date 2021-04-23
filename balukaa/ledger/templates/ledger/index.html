@@ -1,12 +1,12 @@
 {% extends 'ledger/base.html' %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block title %}Бухгалтерские проводки{% endblock %}
 
 {% block content %}
         <h1>Бухгалтерские проводки</h1>
-        {% if entries %}
-            {% for el in entries %}
-                <div class="alert alert-warning mt-2">
+        {% if object_list %}
+            {% for el in object_list %}
+                <div class="alert alert-primary mt-2">
                     <h3>{{ el.date }}</h3>
                     <p>{{ el }}</p>
                 </div>
