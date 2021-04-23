@@ -1,6 +1,6 @@
 from django.db.models.query import QuerySet
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView, DetailView
 from .models import Account, Entry
 
 # Create your views here.
@@ -17,6 +17,11 @@ class EntriesListView(ListView):
     model = Entry
     template_name = 'ledger/index.html'
     
+    
+class EntryDetailView(DetailView):
+    model = Entry
+    template_name = 'ledger/index.html'
+
 
 class AccountsListView(ListView):
     model = Account
