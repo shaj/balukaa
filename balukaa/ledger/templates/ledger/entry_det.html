@@ -1,0 +1,10 @@
+{% extends 'ledger/base.html' %}
+
+{% block title %}Бухгалтерские проводки{% endblock %}
+
+{% block content %}
+    <h1>{{ object.name }}</h1>
+    <span class='lead'>{{ object.date }} </span>
+    <div class='body'>{{ object.entryType }} </div>
+    <span class='lead'>{{ object.summ }} </span>
+{% endblock %}

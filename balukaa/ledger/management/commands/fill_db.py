@@ -72,6 +72,10 @@ class Command(BaseCommand):
                                       updates_at=timezone.now(),
                                       )
 
+        print(entry3.entryType.name)
+        print(entry3.entryType.label)
+        print(entry3.entryType.value)
+
         # # 2. Несколько объектов по условию
         # # food = Food.objects.filter(<условие>)
         # # все бананы
