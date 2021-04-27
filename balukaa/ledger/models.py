@@ -1,3 +1,4 @@
+from datetime import date, datetime
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -28,7 +29,7 @@ class Entry(models.Model):
         DECREASE = '--', _('Уменьшение')
 
     name = models.CharField(max_length=128)
-    date = models.DateField()
+    date = models.DateField(default=date.today)
     fAccount = models.ForeignKey(Account, on_delete=models.SET_NULL, blank=True, null=True)
     lAccount = models.ForeignKey(Account, on_delete=models.SET_NULL, blank=True, null=True, related_name='+')
     entryType = models.CharField(
@@ -38,8 +39,8 @@ class Entry(models.Model):
     )
     summ = models.DecimalField(max_digits=10, decimal_places=2)
     is_enter = models.BooleanField()
-    created_at = models.DateTimeField()
-    updates_at = models.DateTimeField()
+    created_at = models.DateTimeField(default=datetime.utcnow)
+    updates_at = models.DateTimeField(default=datetime.utcnow)
 
     def __str__(self):
         return f'Проводка {self.name} {self.summ} {self.date}'

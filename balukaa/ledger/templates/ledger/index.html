@@ -1,17 +1,17 @@
 {% extends 'ledger/base.html' %}
+{% include 'material/includes/material_css.html' %}
+{% include 'material/includes/material_js.html' %}
 
-{% block title %}Бухгалтерские проводки{% endblock %}
+{% block title %}Проводки{% endblock %}
 
 {% block content %}
-        <h1>Бухгалтерские проводки</h1>
-        {% if object_list %}
-            {% for el in object_list %}
-                <div class="alert alert-primary mt-2">
-                    <h3>{{ el.date }}</h3>
-                    <p>{{ el }}</p>
-                </div>
-            {% endfor %}
-        {% else %}
-            <p>Нет записей</p>
-        {% endif %}
+    <h1>Проводки</h1>
+    <a class="btn btn-primary" href="{% url 'ledger_new' %}">Новая проводка</a>
+    {% for el in object_list %}
+        <div class="alert alert-primary mt-2">
+            <h3>{{ el.date }}</h3>
+            <p>{{ el }}</p>
+        </div>
+    {% endfor %}
+
 {% endblock %}

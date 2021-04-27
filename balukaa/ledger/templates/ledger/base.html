@@ -6,20 +6,21 @@
   <meta charset="utf-8">
   <link rel="shortcut icon" href="{%  static 'favicon.ico' %}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  {% comment %} <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> {% endcomment %}
   <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
   <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
     <h5 class="my-0 mr-md-auto font-weight-normal"><a href="/">Balukaa</a></h5>
     <nav class="my-2 my-md-0 mr-md-3">
-      <a class="p-2 text-dark" href="{% url 'main' %}">Проводки</a>
+      <a class="p-2 text-dark" href="{% url 'ledger' %}">Проводки</a>
       <a class="p-2 text-dark" href="{% url 'account' %}">План счетов</a>
+      <a class="p-2 text-dark" href="{% url 'move' %}">Движение по счтам</a>
       <a class="p-2 text-dark" href="/admin/">Админка</a>
       <a class="p-2 text-dark" href="{% url 'about' %}">About as</a>
       <a class="p-2 text-dark" href="{% url 'home' %}">Пример</a>
-      <a class="p-2 text-dark" href="{% url 'create_task' %}">Новая задача</a>
     </nav>
-    <a class="btn btn-outline-primary" href="#">Sign up</a>
+    <a class="btn btn-primary" href="#">Войти</a>
   </div>
   <div class="container">
     {% block content %}{% endblock %}

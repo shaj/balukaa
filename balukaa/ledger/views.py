@@ -1,7 +1,8 @@
 from django.db.models.query import QuerySet
 from django.shortcuts import render
-from django.views.generic import ListView, TemplateView, DetailView
+from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView
 from .models import Account, Entry
+from .forms import EntryForm
 
 # Create your views here.
 # def main(request):
@@ -20,7 +21,29 @@ class EntriesListView(ListView):
     
 class EntryDetailView(DetailView):
     model = Entry
-    template_name = 'ledger/index.html'
+    template_name = 'ledger/entry_det.html'
+
+
+class EntryCreateView(CreateView):
+    model = Entry
+    template_name = 'ledger/entry_edit.html'
+    form_class = EntryForm
+    success_url = '/'
+
+    # def post(self, request, *args, **kwargs):
+    #     print(request.user)
+    #     return super().post(request, args, kwargs)
+
+    # def form_valid(self, form):
+    #     print('Form validating')
+    #     return super().form_valid(form)
+
+    
+class EntryEditView(UpdateView):
+    model = Entry
+    template_name = 'ledger/entry_edit.html'
+    form_class = EntryForm
+    success_url = '/'
 
 
 class AccountsListView(ListView):
