@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 import datetime
+from django.utils import timezone
 from ledger.models import Account, Entry
 
 
@@ -34,8 +35,8 @@ class Command(BaseCommand):
                                       entryType='+-',
                                       summ=1000.00,
                                       is_enter=False,
-                                      created_at=datetime.datetime.utcnow(),
-                                      updates_at=datetime.datetime.utcnow(),
+                                      created_at=timezone.now(),
+                                      updates_at=timezone.now(),
                                       )
 
         entry2 = Entry.objects.create(name='Выплата поставщику',
@@ -45,8 +46,8 @@ class Command(BaseCommand):
                                       entryType='--',
                                       summ=500.00,
                                       is_enter=False,
-                                      created_at=datetime.datetime.utcnow(),
-                                      updates_at=datetime.datetime.utcnow(),
+                                      created_at=timezone.now(),
+                                      updates_at=timezone.now(),
                                       )
 
         entry3 = Entry.objects.create(name='Приход товара',
@@ -56,8 +57,8 @@ class Command(BaseCommand):
                                       entryType='++',
                                       summ=1234.56,
                                       is_enter=False,
-                                      created_at=datetime.datetime.utcnow(),
-                                      updates_at=datetime.datetime.utcnow(),
+                                      created_at=timezone.now(),
+                                      updates_at=timezone.now(),
                                       )
 
         entry3 = Entry.objects.create(name='Отгрузка товара',
@@ -67,8 +68,8 @@ class Command(BaseCommand):
                                       entryType='--',
                                       summ=7890.12,
                                       is_enter=True,
-                                      created_at=datetime.datetime.utcnow(),
-                                      updates_at=datetime.datetime.utcnow(),
+                                      created_at=timezone.now(),
+                                      updates_at=timezone.now(),
                                       )
 
         # # 2. Несколько объектов по условию

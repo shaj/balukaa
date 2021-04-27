@@ -1,4 +1,5 @@
-from datetime import date, datetime
+from datetime import date
+from django.utils import timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -39,8 +40,8 @@ class Entry(models.Model):
     )
     summ = models.DecimalField(max_digits=10, decimal_places=2)
     is_enter = models.BooleanField()
-    created_at = models.DateTimeField(default=datetime.utcnow)
-    updates_at = models.DateTimeField(default=datetime.utcnow)
+    created_at = models.DateTimeField(default=timezone.now)
+    updates_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return f'Проводка {self.name} {self.summ} {self.date}'
