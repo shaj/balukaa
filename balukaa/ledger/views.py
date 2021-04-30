@@ -1,6 +1,8 @@
+from typing import Optional
 from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Account, Entry
 from .forms import EntryForm
 
@@ -19,16 +21,20 @@ class EntriesListView(ListView):
     template_name = 'ledger/index.html'
     
     
-class EntryDetailView(DetailView):
+class EntryDetailView(LoginRequiredMixin, DetailView):
     model = Entry
     template_name = 'ledger/entry_det.html'
 
 
-class EntryCreateView(CreateView):
+class EntryCreateView(UserPassesTestMixin, CreateView):
     model = Entry
     template_name = 'ledger/entry_edit.html'
     form_class = EntryForm
     success_url = '/'
+
+    def test_func(self) -> Optional[bool]:
+        # return super().test_func()
+        return self.request.user.is_superuser
 
     # def post(self, request, *args, **kwargs):
     #     print(request.user)

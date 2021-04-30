@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'main',
     'ledger',
+    'userapp',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,8 @@ INTERNAL_IPS = [
     # ...
 ]
 
+
+AUTH_USER_MODEL = 'userapp.LedgerUser'
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login/'

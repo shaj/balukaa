@@ -18,12 +18,19 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from userapp.views import NewUserView, LedgerLoginView
+from django.contrib.auth.views import LoginView, LogoutView
+
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('main/', include('main.urls')),
     path('', include('ledger.urls')),
+    
+    path('register/', NewUserView.as_view()),
+    path('login/', LedgerLoginView.as_view()),
+    path('logout/', LogoutView.as_view()),
     path('__debug__/', include(debug_toolbar.urls)),
 ]
 
