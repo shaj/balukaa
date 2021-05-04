@@ -11,7 +11,7 @@ class Account(models.Model):
     is_active = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'Account {self.number} {self.name}'
+        return f'{self.number} {self.name}'
 
     class Meta:
         verbose_name = "Счет"
@@ -44,7 +44,7 @@ class Entry(models.Model):
     updates_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return f'Проводка {self.name} {self.summ} {self.date}'
+        return f'{self.date} | {self.name} | {self.summ}'
 
     class Meta:
         verbose_name = "Проводка"

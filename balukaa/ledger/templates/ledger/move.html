@@ -16,10 +16,10 @@
             <tbody>
                 {% for el in object_list %}
                     <tr>
-                        <th scope="row">{{ el.id }}</th>
-                        <td>{{ el }}</td>
-                        <td>{{ el.account }}</td>
-                        <td>{{ el.sum }}</td>
+                        <th scope="row">#{{ el.id }}<br/>{{ el.date }}</th>
+                        <td>{{ el.name }}</td>
+                        <td>{{ el.fAccount }}<br/>{{ el.lAccount }}</td>
+                        <td>{{ el.summ }}</td>
                     </tr>
                 {% endfor %}
             </tbody>

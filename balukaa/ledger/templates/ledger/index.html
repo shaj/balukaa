@@ -11,8 +11,9 @@
         <div class="alert alert-primary mt-2">
             <h3>{{ el.date }}</h3>
             <p>
+                <a class="btn btn-outline-success" href="entry/{{ el.id }}/">Детали</a>
+                <a class="btn btn-outline-success" href="entry/edit/{{ el.id }}/">Изменить</a>
                 {{ el }}
-                <a class="btn btn-primary-outline" href="entry/{{ el.id }}">Изменить</a>
             </p>
         </div>
     {% endfor %}

@@ -3,8 +3,14 @@
 {% block title %}Бухгалтерские проводки{% endblock %}
 
 {% block content %}
+    <code>#{{ object.id }}</code>
     <h1>{{ object.name }}</h1>
     <span class='lead'>{{ object.date }} </span>
-    <div class='body'>{{ object.entryType }} </div>
+    <div>{{ object.lAccount }} =&gt; {{ object.fAccount }}</div>
+    <div class="body">{{ object.entryType }} </div>
     <span class='lead'>{{ object.summ }} </span>
+    <div class="mt-2">
+        <a class="btn btn-primary" href="/">Список</a>
+        <a class="btn btn-primary" href="/entry/edit/{{ object.id }}/">Изменить</a>
+    </div>
 {% endblock %}

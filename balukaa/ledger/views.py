@@ -72,5 +72,4 @@ class MoviListView(ListView):
     
     def get_queryset(self) -> QuerySet:
         queryset = Entry.objects.filter(is_enter=True).order_by("date")
-        print(queryset)
         return queryset
