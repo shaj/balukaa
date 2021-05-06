@@ -1,19 +1,8 @@
-from typing import Optional
 from django.db.models.query import QuerySet
-from django.shortcuts import render
 from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Account, Entry
 from .forms import EntryForm
-
-# Create your views here.
-# def main(request):
-#     # tasks = Task.objects.order_by('-id')
-#     entries = Entry.objects.all().order_by('id')
-#     return render(request, 'ledger/index.html',
-#                   {
-#                       'entries': entries,
-#                   })
 
 
 class EntriesListView(ListView):
@@ -32,7 +21,7 @@ class EntryCreateView(UserPassesTestMixin, CreateView):
     form_class = EntryForm
     success_url = '/'
 
-    def test_func(self) -> Optional[bool]:
+    def test_func(self):
         # return super().test_func()
         return self.request.user.is_superuser
 
@@ -58,13 +47,6 @@ class AccountsListView(ListView):
     
     def get_queryset(self):
         return Account.objects.all().order_by("number")
-
-# def account(request):
-#     accounts = Account.objects.all().order_by("number")
-#     return render(request, 'ledger/account.html',
-#                   {
-#                       'accounts': accounts,
-#                   })
 
 
 class MoviListView(ListView):

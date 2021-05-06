@@ -4,12 +4,13 @@
 
 {% block content %}
     <code>#{{ object.id }}</code>
-    <h1>{{ object.name }}</h1>
-    <span class='lead'>{{ object.date }} </span>
+    <div class="my-2"><h1>{{ object.name }}</h1></div>
+    <span class='lead'>{{ object.date }}</span>
     <div>{{ object.lAccount }} =&gt; {{ object.fAccount }}</div>
-    <div class="body">{{ object.entryType }} </div>
-    <span class='lead'>{{ object.summ }} </span>
-    <div class="mt-2">
+    {% comment %} Отсюда: https://stackoverflow.com/a/762830 {% endcomment %}
+    <div class="body"><code>{{ object.entryType }}</code> {{ object.get_entryType_display }}</div>
+    <span class='lead'>{{ object.summ }}</span>
+    <div class="mt-4">
         <a class="btn btn-primary" href="/">Список</a>
         <a class="btn btn-primary" href="/entry/edit/{{ object.id }}/">Изменить</a>
     </div>

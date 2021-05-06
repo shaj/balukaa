@@ -42,7 +42,7 @@ class Entry(models.Model):
     is_enter = models.BooleanField()
     created_at = models.DateTimeField(default=timezone.now)
     updates_at = models.DateTimeField(default=timezone.now)
-
+    
     def __str__(self):
         return f'{self.date} | {self.name} | {self.summ}'
 
