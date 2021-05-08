@@ -11,15 +11,19 @@
                     <th scope="col">Проводка</th>
                     <th scope="col">Счет</th>
                     <th scope="col">Сумма</th>
+                    <th scope="col">Запись создана</th>
+                    <th scope="col">Запись изменена</th>
                 </tr>
             </thead>
             <tbody>
                 {% for el in object_list %}
                     <tr>
-                        <th scope="row">#{{ el.id }}<br/>{{ el.date }}</th>
+                        <th scope="row">#{{ el.id }}<br/>{{ el.date|date:'d.m.y' }}</th>
                         <td>{{ el.name }}</td>
                         <td>{{ el.fAccount }}<br/>{{ el.lAccount }}</td>
                         <td>{{ el.summ }}</td>
+                        <td>{{ el.created_at|date:'Y-m-d H:i' }}</td>
+                        <td>{{ el.updates_at|date:'Y-m-d H:i' }}</td>
                     </tr>
                 {% endfor %}
             </tbody>

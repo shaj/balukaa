@@ -1,4 +1,5 @@
 from datetime import date
+import decimal
 from django.utils import timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -9,6 +10,28 @@ class Account(models.Model):
     name = models.CharField(max_length=128)
     fullName = models.CharField(max_length=256)
     is_active = models.BooleanField(default=False)
+    
+    def getRefs(self) -> int:
+        """Подсчет общего количества упоминаний этого счета.
+        
+        Используется для тестов и разработки.
+
+        Returns:
+            int: общее количество упоминаний счета
+        """        
+        return Entry.objects.filter(is_enter=True).filter(models.Q(lAccount=self.id) | models.Q(fAccount=self.id)).count()
+
+    def getRemains(self, dateStart: date, dateEnd: date) -> decimal.Decimal:
+        """Подсчет остатка на счете на определенную дату
+
+        Args:
+            date (date): Дата, на которую нужно посчитать остаток
+
+        Returns:
+            decimal.Decimal: Остаток для отображения
+        """
+        
+        return decimal.Decimal('-1000.83')
 
     def __str__(self):
         return f'{self.number} {self.name}'

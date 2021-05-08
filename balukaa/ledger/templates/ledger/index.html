@@ -6,13 +6,17 @@
 
 {% block content %}
     <h1>Проводки</h1>
-    <a class="btn btn-primary" href="{% url 'ledger_new' %}">Новая проводка</a>
+    <a class="btn btn-primary" href="{% url 'entry_new' %}">Новая проводка</a>
     {% for el in object_list %}
-        <div class="alert alert-primary mt-2">
-            <h3>{{ el.date }}</h3>
+        {% if el.is_enter %}
+            <div class="alert alert-primary mt-2">
+        {% else %}
+            <div class="alert alert-secondary mt-2">
+        {% endif %}
+            <h4>{{ el.date }}</h4>
             <p>
-                <a class="btn btn-outline-success" href="entry/{{ el.id }}/">Детали</a>
-                <a class="btn btn-outline-success" href="entry/edit/{{ el.id }}/">Изменить</a>
+                <a class="btn btn-outline-success" href="{% url "entry_det" el.id %}">Детали</a>
+                <a class="btn btn-outline-success" href="{% url "entry_edit" el.id %}">Изменить</a>
                 {{ el }}
             </p>
         </div>

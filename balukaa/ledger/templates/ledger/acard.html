@@ -1,0 +1,49 @@
+{% extends 'ledger/base.html' %}
+
+{% block title %}{{ account.name }}{% endblock %}
+
+{% block content %}
+    <h3>Карточка по счету: {{ account.name }}</h3>
+    <p>Фильтр: от {{ first|date:'d.m.Y' }} до {{ last|date:'d.m.Y' }}</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Дата</th>
+                <th scope="col">Счет-корреспондент</th>
+                <th scope="col">Приход</th>
+                <th scope="col">Расход</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row" colspan="2">Начальный остаток:</th>
+                <th>0.00</th>
+                <th>0.00</th>
+            </tr>
+            {% for el in object_list %}
+                <tr>
+                    <th scope="row">{{ el.accDate|date:'d.m.Y' }}</th>
+                    <td>{{ el.corrAcc }}</td>
+                    {% if el.arrival != '0' %}
+                        <td>{{ el.arrival }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if el.expence != '0' %}
+                        <td>{{ el.expence }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            <tr>
+                <th scope="row" colspan="2">Конечный остаток:</th>
+                <th>{{ coming }}</th>
+                <th>{{ consumption }}</th>
+            </tr>
+            <tr>
+                <th scope="row" colspan="2">Сальдо по счету:<th/>
+                <th colspan="2">{{ balance }}</th>
+        </tbody>
+    </table>
+{% endblock %}

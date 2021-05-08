@@ -1,16 +1,28 @@
+
 {% extends 'ledger/base.html' %}
 
-{% block title %}Редактирование плана счетов{% endblock %}
+{% block title %}План счетов{% endblock %}
 
 {% block content %}
-        <h1>План счетов</h1>
-        {% if object_list %}
-            {% for el in object_list %}
-                <div class="alert alert-secondary mt-2">
-                    <h3>{{ el.number }} {{ el.fullName }}</h3>
+    <h1>План счетов</h1>
+    {% if object_list %}
+        {% for el in object_list %}
+            <div class="alert alert-secondary mt-2">
+                <div class="row">
+                    <div class="col">
+                        <p class="lead"><code>#{{ el.id }}</code> {{ el.number }} {{ el.name }}</p>
+                        <p><small>{{ el.fullName }}</small></p>
+                    </div>
+                    <div class="col">
+                        <p>Refs count {{ el.getRefs }}</p>
+                    </div>
+                    <div class="col">
+                        <p><a class="btn btn-outline-success" href="{% url 'acard' el.id %}">Карточка</a></p>
+                    </div>
                 </div>
-            {% endfor %}
-        {% else %}
-            <p>Нет записей</p>
-        {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Нет записей</p>
+    {% endif %}
 {% endblock %}
