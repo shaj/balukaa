@@ -5,7 +5,7 @@
 {% block content %}
     <h3>Карточка по счету: {{ account.name }}</h3>
     <p>Фильтр: от {{ first|date:'d.m.Y' }} до {{ last|date:'d.m.Y' }}</p>
-    <table class="table">
+    <table class="table table-hover table-bordered">
         <thead>
             <tr>
                 <th scope="col">Дата</th>
@@ -13,13 +13,13 @@
                 <th scope="col">Приход</th>
                 <th scope="col">Расход</th>
             </tr>
+            <tr>
+                <th scope="row" colspan="2" class="text-right">Начальный остаток:</th>
+                <th>{{ begin_balance.arrival }}</th>
+                <th>{{ begin_balance.expence }}</th>
+            </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row" colspan="2">Начальный остаток:</th>
-                <th>0.00</th>
-                <th>0.00</th>
-            </tr>
             {% for el in object_list %}
                 <tr>
                     <th scope="row">{{ el.accDate|date:'d.m.Y' }}</th>
@@ -36,14 +36,17 @@
                     {% endif %}
                 </tr>
             {% endfor %}
+        </tbody>
+        <tfoot>
             <tr>
-                <th scope="row" colspan="2">Конечный остаток:</th>
-                <th>{{ coming }}</th>
-                <th>{{ consumption }}</th>
+                <th scope="row" colspan="2" class="text-right">Конечный остаток:</th>
+                <th>{{ end_balance.arrival }}</th>
+                <th>{{ end_balance.expence }}</th>
             </tr>
             <tr>
-                <th scope="row" colspan="2">Сальдо по счету:<th/>
-                <th colspan="2">{{ balance }}</th>
-        </tbody>
+                <th scope="row" colspan="2" class="text-right">Сальдо по счету:</th>
+                <th colspan="2">{{ end_balance.balance }}</th>
+            </tr>
+        </tfoot>
     </table>
 {% endblock %}

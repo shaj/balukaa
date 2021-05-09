@@ -1,6 +1,6 @@
 import decimal
 from typing import Any, Dict
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from dataclasses import dataclass
 from decimal import Decimal
 from pprint import pprint
@@ -88,64 +88,51 @@ class ACardView(TemplateView):
         
         account = Account.objects.get(id=kwargs['pk'])
         # Здесь нужно найти минимальную дату в базе
-        dateFrom = Entry.objects.earliest('date').date
-        # Здесь нужно найти максимальную дату в базе
-        dateTo = Entry.objects.latest('date').date
+        dateEarliest = Entry.objects.earliest('date').date
+        dateFrom = None
+        dateTo = None
 
         try:
             dateFrom = datetime.strptime(self.request.GET.get('from'), '%Y%m%d')
         except Exception:
-            pass
+            dateFrom = dateEarliest
         try:
             dateTo = datetime.strptime(self.request.GET.get('to'), '%Y%m%d')
         except Exception:
-            pass
+            dateTo = Entry.objects.latest('date').date
         
-        entries = Entry.objects \
-            .filter(Q(lAccount=account.id) | Q(fAccount=account.id)) \
-            .filter(is_enter=True) \
-            .filter(date__gte=dateFrom) \
-            .filter(date__lte=dateTo)
+        entries = Entry.objects.filter(Q(lAccount=account.id) | Q(fAccount=account.id),
+                                       is_enter=True,
+                                       date__gte=dateFrom, date__lte=dateTo).order_by('date')
         
         object_list = []
-        coming = Decimal('0.00')
-        consumption = Decimal('0.00')
-        balance = Decimal('0.00')
         for el in entries:
             row = ACardRow(el.date, None, '0', '0')
             if el.fAccount != account:
                 row.corrAcc = el.fAccount.name
-                if el.entryType == '-+':
+                if el.entryType == Entry.EntryType.MOVE.value:
                     row.arrival = el.summ
-                    coming += el.summ
-                elif el.entryType == '++':
+                elif el.entryType == Entry.EntryType.INCREASE.value:
                     row.arrival = el.summ
-                    coming += el.summ
                 else:
                     row.expence = el.summ
-                    consumption += el.summ
             elif el.lAccount != account:
                 row.corrAcc = el.lAccount.name
-                if el.entryType == '-+':
+                if el.entryType == Entry.EntryType.MOVE.value:
                     row.expence = el.summ
-                    consumption += el.summ
-                elif el.entryType == '++':
+                elif el.entryType == Entry.EntryType.INCREASE.value:
                     row.arrival = el.summ
-                    coming += el.summ
                 else:
                     row.expence = el.summ
-                    consumption += el.summ
             object_list.append(row)
         
-        balance = coming - consumption
-        
+       
         context['object_list'] = object_list
         context['first'] = dateFrom
         context['last'] = dateTo
         context['account'] = account
-        context['coming'] = coming
-        context['consumption'] = consumption
-        context['balance'] = balance
+        context['begin_balance'] = account.getRemains(dateEarliest, dateFrom - timedelta(days=1))
+        context['end_balance'] = account.getRemains(dateEarliest, dateTo)
         
         return context
     

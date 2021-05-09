@@ -32,7 +32,7 @@ class Command(BaseCommand):
                                       date=datetime.date(2021, 1, 10),
                                       fAccount=account60,   # Поставщики
                                       lAccount=account50,   # Касса
-                                      entryType='+-',
+                                      entryType=Entry.EntryType.MOVE.value,
                                       summ=1000.00,
                                       is_enter=False,
                                       created_at=timezone.now(),
@@ -43,7 +43,7 @@ class Command(BaseCommand):
                                       date=datetime.date(2021, 1, 11),
                                       fAccount=account50,   # Касса
                                       lAccount=account60,   # Поставщики
-                                      entryType='--',
+                                      entryType=Entry.EntryType.DECREASE.value,
                                       summ=500.00,
                                       is_enter=False,
                                       created_at=timezone.now(),
@@ -54,7 +54,7 @@ class Command(BaseCommand):
                                       date=datetime.date(2021, 1, 12),
                                       fAccount=account70,   # Товар
                                       lAccount=account60,   # Поставщики
-                                      entryType='++',
+                                      entryType=Entry.EntryType.INCREASE.value,
                                       summ=1234.56,
                                       is_enter=False,
                                       created_at=timezone.now(),
@@ -65,7 +65,7 @@ class Command(BaseCommand):
                                       date=datetime.date(2021, 1, 13),
                                       fAccount=account70,   # Товар
                                       lAccount=account80,   # Покупатели
-                                      entryType='--',
+                                      entryType=Entry.EntryType.DECREASE.value,
                                       summ=7890.12,
                                       is_enter=True,
                                       created_at=timezone.now(),
