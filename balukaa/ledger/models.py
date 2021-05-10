@@ -47,7 +47,7 @@ class Account(models.Model):
         if q2['summ__sum'] is not None:
             summ += q2['summ__sum']
 
-        return summ
+        return summ.quantize(decimal.Decimal("1.00"))
 
     def getExpence(self, dateFrom: date, dateTo: date) -> decimal.Decimal:
         """
@@ -74,7 +74,7 @@ class Account(models.Model):
         if q2['summ__sum'] is not None:
             summ += q2['summ__sum']
 
-        return summ
+        return summ.quantize(decimal.Decimal("1.00"))
 
     def getRemains(self, dateFrom: date, dateTo: date) -> decimal.Decimal:
         """Подсчет остатка на счете на определенную дату
@@ -90,7 +90,7 @@ class Account(models.Model):
         d = {
             'arrival': a,
             'expence': e,
-            'balance': a-e,
+            'balance': (a-e),
         }
         return d
 

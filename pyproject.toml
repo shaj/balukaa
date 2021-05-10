@@ -9,6 +9,7 @@ license = "MIT"
 python = "^3.8"
 Django = "^3.2"
 django-debug-toolbar = "^3.2"
+mixer = "^7.1.2"
 
 [tool.poetry.dev-dependencies]
 
