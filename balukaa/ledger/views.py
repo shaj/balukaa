@@ -8,7 +8,7 @@ from pprint import pprint
 from django.db.models.query import QuerySet
 from django.db.models import Q
 from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from .models import Account, Entry
 from .forms import EntryForm
 
@@ -17,7 +17,7 @@ class AboutView(TemplateView):
     template_name = 'ledger/about.html'
 
 
-class EntriesListView(ListView):
+class EntriesListView(LoginRequiredMixin, ListView):
     model = Entry
     template_name = 'ledger/index.html'
     
@@ -27,33 +27,27 @@ class EntryDetailView(LoginRequiredMixin, DetailView):
     template_name = 'ledger/entry_det.html'
 
 
-class EntryCreateView(UserPassesTestMixin, CreateView):
+class EntryCreateView(PermissionRequiredMixin, CreateView):
+    
+    permission_required = 'entry.add_choice'
+    
     model = Entry
     template_name = 'ledger/entry_edit.html'
     form_class = EntryForm
     success_url = '/'
-
-    def test_func(self):
-        # return super().test_func()
-        return self.request.user.is_superuser
-
-    # def post(self, request, *args, **kwargs):
-    #     print(request.user)
-    #     return super().post(request, args, kwargs)
-
-    # def form_valid(self, form):
-    #     print('Form validating')
-    #     return super().form_valid(form)
 
     
-class EntryEditView(UpdateView):
+class EntryEditView(PermissionRequiredMixin, UpdateView):
+    
+    permission_required = 'entry.change_choice'
+    
     model = Entry
     template_name = 'ledger/entry_edit.html'
     form_class = EntryForm
     success_url = '/'
 
 
-class AccountsListView(ListView):
+class AccountsListView(LoginRequiredMixin, ListView):
     model = Account
     template_name = 'ledger/account.html'
     
@@ -61,7 +55,7 @@ class AccountsListView(ListView):
         return Account.objects.all().order_by("number")
 
 
-class MoviListView(ListView):
+class MoviListView(LoginRequiredMixin, ListView):
     template_name = 'ledger/move.html'
     
     def get_queryset(self) -> QuerySet:
@@ -77,7 +71,7 @@ class ACardRow:
     expence: Decimal = '0'
 
 
-class ACardView(TemplateView):
+class ACardView(LoginRequiredMixin, TemplateView):
     template_name = 'ledger/acard.html'
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
@@ -93,11 +87,11 @@ class ACardView(TemplateView):
         dateTo = None
 
         try:
-            dateFrom = datetime.strptime(self.request.GET.get('from'), '%Y%m%d')
+            dateFrom = datetime.strptime(self.request.GET.get('from'), '%Y%m%d').date()
         except Exception:
             dateFrom = dateEarliest
         try:
-            dateTo = datetime.strptime(self.request.GET.get('to'), '%Y%m%d')
+            dateTo = datetime.strptime(self.request.GET.get('to'), '%Y%m%d').date()
         except Exception:
             dateTo = Entry.objects.latest('date').date
         
