@@ -5,7 +5,7 @@ jobs:
   unit-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: action/checkout@v2
+      - uses: actions/checkout@v2
       - name: Set up Python 3
         uses: actions/setup-python@v2
         with:
@@ -23,7 +23,11 @@ jobs:
           pip install poetry
           poetry install
       - name: Run pytest
+        env: 
+          BALUKAA_SECRET_KEY: 'b3cxoihd-v()uwa6+#721=j3q80y(e8(mz6iv68&c=9*so_3oj'
         run: |
           cd balukaa
-          python3 manager.py test
+          # pwd
+          # ls
+          poetry run python ./manage.py test
       
