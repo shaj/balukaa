@@ -1,11 +1,16 @@
 from django import forms
 from .models import Entry, Account
+
 # from django.forms import ModelForm, TextInput, Textarea
 
 
 class MessageForm(forms.Form):
-    theme = forms.CharField(label='Тема', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    text = forms.CharField(label='Текст', widget=forms.Textarea(attrs={'class': 'form-control'}))
+    theme = forms.CharField(
+        label="Тема", widget=forms.TextInput(attrs={"class": "form-control"})
+    )
+    text = forms.CharField(
+        label="Текст", widget=forms.Textarea(attrs={"class": "form-control"})
+    )
 
 
 class EntryForm(forms.ModelForm):
@@ -24,4 +29,4 @@ class EntryForm(forms.ModelForm):
 
     class Meta:
         model = Entry
-        fields = '__all__'
+        fields = "__all__"

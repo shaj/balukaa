@@ -8,14 +8,11 @@ from faker import Faker
 
 
 class Command(BaseCommand):
-
     def handle(self, *args, **options):
         fake = Faker()
         print(fake.name())
         print(fake.text())
-        print('========')
+        print("========")
         print(fake.word())
         pprint(fake.color())
-        print('END')
-        
-        
+        print("END")

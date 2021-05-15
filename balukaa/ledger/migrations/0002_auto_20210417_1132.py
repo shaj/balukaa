@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('ledger', '0001_initial'),
+        ("ledger", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='account',
-            name='is_active',
+            model_name="account",
+            name="is_active",
             field=models.BooleanField(default=False),
         ),
         migrations.AlterField(
-            model_name='account',
-            name='number',
+            model_name="account",
+            name="number",
             field=models.PositiveIntegerField(unique=True),
         ),
     ]

@@ -7,23 +7,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('ledger', '0004_auto_20210427_1251'),
+        ("ledger", "0004_auto_20210427_1251"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='entry',
-            name='created_at',
+            model_name="entry",
+            name="created_at",
             field=models.DateTimeField(default=datetime.datetime.utcnow),
         ),
         migrations.AlterField(
-            model_name='entry',
-            name='date',
+            model_name="entry",
+            name="date",
             field=models.DateField(default=datetime.date.today),
         ),
         migrations.AlterField(
-            model_name='entry',
-            name='updates_at',
+            model_name="entry",
+            name="updates_at",
             field=models.DateTimeField(default=datetime.datetime.utcnow),
         ),
     ]

@@ -6,18 +6,17 @@ from pprint import pprint
 
 
 class Command(BaseCommand):
-
     def handle(self, *args, **options):
 
         entry3 = Entry.objects.all().first()
 
-        print('id', entry3.id)
-        print('entryType', entry3.entryType)
+        print("id", entry3.id)
+        print("entryType", entry3.entryType)
 
         print(entry3.summ)
         a = entry3.summ
         print(type(a), a)
-        
+
         print(type(Entry.EntryType.MOVE), repr(Entry.EntryType.MOVE))
-        print(type(Entry.EntryType['MOVE'].label), repr(Entry.EntryType['MOVE'].label))
+        print(type(Entry.EntryType["MOVE"].label), repr(Entry.EntryType["MOVE"].label))
         print(type(Entry.EntryType.MOVE.value), repr(Entry.EntryType.MOVE.value))

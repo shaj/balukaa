@@ -3,4 +3,3 @@ from .models import LedgerUser
 
 # Register your models here.
 admin.site.register(LedgerUser)
-

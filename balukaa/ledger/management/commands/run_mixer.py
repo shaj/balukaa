@@ -8,9 +8,6 @@ from mixer.backend.django import mixer
 
 
 class Command(BaseCommand):
-
     def handle(self, *args, **options):
         e = mixer.blend(Entry)
         print(e)
-    
-    

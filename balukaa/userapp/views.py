@@ -8,9 +8,9 @@ from .forms import NewUserForm
 class NewUserView(CreateView):
     model = LedgerUser
     form_class = NewUserForm
-    template_name = 'userapp/newuser.html'
-    success_url = '/'
+    template_name = "userapp/newuser.html"
+    success_url = "/"
+
 
 class LedgerLoginView(LoginView):
-    template_name = 'userapp/login.html'
-   
+    template_name = "userapp/login.html"

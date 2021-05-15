@@ -7,23 +7,42 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('ledger', '0002_auto_20210417_1132'),
+        ("ledger", "0002_auto_20210417_1132"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='entry',
-            name='entryType',
-            field=models.CharField(choices=[('+-', 'Перетекание'), ('++', 'Увеличение'), ('--', 'Уменьшение')], default='++', max_length=2),
+            model_name="entry",
+            name="entryType",
+            field=models.CharField(
+                choices=[
+                    ("+-", "Перетекание"),
+                    ("++", "Увеличение"),
+                    ("--", "Уменьшение"),
+                ],
+                default="++",
+                max_length=2,
+            ),
         ),
         migrations.AddField(
-            model_name='entry',
-            name='fAccount',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='ledger.account'),
+            model_name="entry",
+            name="fAccount",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="ledger.account",
+            ),
         ),
         migrations.AddField(
-            model_name='entry',
-            name='lAccount',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='ledger.account'),
+            model_name="entry",
+            name="lAccount",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="ledger.account",
+            ),
         ),
     ]
