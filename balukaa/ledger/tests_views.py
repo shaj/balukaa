@@ -5,6 +5,7 @@ from pprint import pprint
 from django.test import TestCase
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
+from django.urls import reverse
 
 from .models import Entry, Account
 from userapp.models import LedgerUser
@@ -71,24 +72,24 @@ class TestACardView(TestCase):
 
 
     def test_perms(self):
-        response = self.client.get(f"/acard/{self.accounts['50'].id}")
+        response = self.client.get(reverse('acard', args=[self.accounts['50'].id]))
         self.assertEqual(response.status_code, 302)
 
         self.client.login(username='user', password='user123456')
 
-        response = self.client.get(f"/acard/{self.accounts['50'].id}")
+        response = self.client.get(reverse('acard', args=[self.accounts['50'].id]))
         self.assertEqual(response.status_code, 302)
 
         self.client.logout()
         self.client.login(username='admin', password='admin123456')
 
-        response = self.client.get(f"/acard/{self.accounts['50'].id}")
+        response = self.client.get(reverse('acard', args=[self.accounts['50'].id]))
         self.assertEqual(response.status_code, 200)
 
 
     def test_context_without_params(self):
         self.client.login(username='admin', password='admin123456')
-        response = self.client.get(f"/acard/{self.accounts['50'].id}")
+        response = self.client.get(reverse('acard', args=[self.accounts['50'].id]))
 
         # print(type(response.context))
         # print('object_list size ', len(response.context['object_list']))
@@ -120,7 +121,7 @@ class TestACardView(TestCase):
 
     def test_context_with_dates(self):
         self.client.login(username='admin', password='admin123456')
-        response = self.client.get(f"/acard/{self.accounts['50'].id}", {'from': '20210117', 'to': '20210311'})
+        response = self.client.get(reverse('acard', args=[self.accounts['50'].id]), {'from': '20210117', 'to': '20210311'})
 
         self.assertIn('object_list', response.context)
         self.assertEqual(len(response.context['object_list']), 3)
