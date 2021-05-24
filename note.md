@@ -1,6 +1,11 @@
 
 # TODO
 
+- Посмотреть внимательно:
+   - [Blazing fast CI with GitHub Actions, Poetry, Black and Pytest](https://medium.com/@vanflymen/blazing-fast-ci-with-github-actions-poetry-black-and-pytest-9e74299dd4a5)
+   - [snok/install-poetry@v1.1.4](https://github.com/marketplace/actions/install-poetry-action)
+   - [The Black code style](https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html)
+
 # Материалы
 
 1. Основные вьюшки на базе классов (#29)
@@ -17,10 +22,6 @@
 # MEM
 
 [python venv activate](https://gist.github.com/shaj/5915a0d6f4d523c1991da318288ccdaf)
-
-[Blazing fast CI with GitHub Actions, Poetry, Black and Pytest](https://medium.com/@vanflymen/blazing-fast-ci-with-github-actions-poetry-black-and-pytest-9e74299dd4a5)
-
-[snok/install-poetry@v1.1.4](https://github.com/marketplace/actions/install-poetry-action)
 
 [Примеры github workflows](https://github.com/AdCombo/flask-combo-jsonapi/tree/master/.github/workflows)
 
