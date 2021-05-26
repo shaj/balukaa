@@ -19,11 +19,23 @@
 2. Несколько отчетов
     - Карточки счетов.
         - позволяют видеть начальные остатки, движения и конечные остатки по счетам за любой период.
+
         ![Report-Cards](doc/coursework/Report-Cards.png)
+
+        <img src="doc/coursework/Report-Cards.png" width="50%"/>
+
     - карточка счета
+
       ![Report-ACard](doc/coursework/Report-ACard.png)
+
+      <img src="doc/coursework/Report-ACard.png" width="50%"/>
+
     - баланс
+
       ![Report-balance](doc/coursework/Report-balance.png)
+
+      <img src="doc/coursework/Report-balance.png" width="50%"/>
+
 3. Права доступа на основе групп
     - Группы:
         - Смотрящие - могут только просматривать отчеты
