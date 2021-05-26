@@ -16,25 +16,30 @@
       которая позволяет после проведения операции видеть ее результат 
       и влияние на состояние активов, источников, а также изменение 
       баланса предприятия в целом.
+    - справочник "План счетов"
+
+      <img src="doc/coursework/Model-Account.png" width="350px"/>
+
+    - журнал "Бухгалтерские проводки"
+
+      <img src="doc/coursework/Model-Entry.png" width="500px"/>
+
+    - регистр "Движение по счетам"
+
+      <img src="doc/coursework/Model-EntryRegister.png" width="200px"/>
+
 2. Несколько отчетов
-    - Карточки счетов.
-        - позволяют видеть начальные остатки, движения и конечные остатки по счетам за любой период.
+    - Карточки счетов. Позволяют видеть начальные остатки, движения и конечные остатки по счетам за любой период.
 
-        ![Report-Cards](doc/coursework/Report-Cards.png)
+      <img src="doc/coursework/Report-Cards.png" width="200px"/>
 
-        <img src="doc/coursework/Report-Cards.png" width="50%"/>
+    - карточка счета. Подробнее по конкретному счету.
 
-    - карточка счета
-
-      ![Report-ACard](doc/coursework/Report-ACard.png)
-
-      <img src="doc/coursework/Report-ACard.png" width="50%"/>
+      <img src="doc/coursework/Report-ACard.png" width="200px"/>
 
     - баланс
 
-      ![Report-balance](doc/coursework/Report-balance.png)
-
-      <img src="doc/coursework/Report-balance.png" width="50%"/>
+      <img src="doc/coursework/Report-balance.png" width="200px"/>
 
 3. Права доступа на основе групп
     - Группы:
@@ -53,9 +58,30 @@
 
 [github](https://github.com/shaj/balukaa/tree/OTUS)
 
-1. Получившаяся модель вполне соответствует требованиям к базе
-2. Реализован 1 отчет из необходимых 3
-    - Не оптимизированы запросы к БД. Для создания отчета из 4 строк требуется до 18 запросов к БД
+1. [Получившаяся модель](balukaa/ledger/models.py) вполне соответствует требованиям к базе. Регистр "Движение по счетам"
+   пока реализован на основе запроса к журналу "Бухгалтерские проводки".
+2. Реализованы представления списка проводок и плана счетов.
+
+   <img src="doc/coursework/EntriesListView.png" width="500px"/>
+
+   <img src="doc/coursework/AccountListView.png" width="500px"/>
+
+    - Не реализован фильтр по датам для проводок.
+3. Реализована форма создания и редактирования проводки.
+
+   <img src="doc/coursework/EntryDetailView.png" width="500px"/>
+   <img src="doc/coursework/EntryEditView.png" width="500px"/>
+
+2. Реализован 1 отчет "Карточка счета" из необходимых 3
+
+      <img src="doc/coursework/ACardView.png" width="500px"/>
+
+    - Для создания отчета использовались [методы класса модели](balukaa/ledger/models.py?L29-L115)
+      и метод [get_context_data](balukaa/ledger/views.py?L87-L145) представления ACardView.
+    - Не оптимизированы запросы к БД. Для создания отчета из 6 строк требуется 27 запросов к БД.
+
+      <img src="doc/coursework/ACardView-SQL.png" width="500px"/>
+    
 3. Права доступа
     - Пока на основе сессий
     - Создание групп не реализовано
