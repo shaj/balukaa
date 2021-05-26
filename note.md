@@ -5,6 +5,10 @@
    - [Blazing fast CI with GitHub Actions, Poetry, Black and Pytest](https://medium.com/@vanflymen/blazing-fast-ci-with-github-actions-poetry-black-and-pytest-9e74299dd4a5)
    - [snok/install-poetry@v1.1.4](https://github.com/marketplace/actions/install-poetry-action)
    - [The Black code style](https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html)
+- Django-filter
+   - [django-filter docs](https://django-filter.readthedocs.io/en/stable/guide/install.html)
+   - [django-filter github](https://github.com/carltongibson/django-filter)
+   - [django-filter mailing list](https://groups.google.com/g/django-filter)
 
 # Материалы
 
@@ -26,3 +30,5 @@
 [Примеры github workflows](https://github.com/AdCombo/flask-combo-jsonapi/tree/master/.github/workflows)
 
 Вопрос про **толстую модель**, **тонкий view** и **тупые шаблоны**
+
+[(GitHub-Flavored) Markdown Editor](https://jbt.github.io/markdown-editor/)
