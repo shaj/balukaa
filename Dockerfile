@@ -1,18 +1,23 @@
 FROM python:3.9-buster
 
+# RUN apt-get update \
+#     && apt-get install -y --no-install-recommends \
+#         postgresql-client \
+#     && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /var/app
 
-RUN pip install poetry
-RUN poetry config virtualenvs.create false
+# RUN pip install uvicorn gunicorn
 
-#COPY my-shop/pyproject.toml my-shop/poetry.lock ./
-COPY my-shop/pyproject.toml ./
+RUN pip install poetry && poetry config virtualenvs.create false
 
-RUN poetry install --no-interaction --no-ansi
+COPY pyproject.toml poetry.lock ./
 
-COPY my-shop .
+RUN poetry install --no-interaction --no-ansi --no-dev
 
-RUN chmod +x entrypoint.sh
+COPY balukaa .
+
+# RUN chmod +x entrypoint.sh
 
 EXPOSE 8080
 

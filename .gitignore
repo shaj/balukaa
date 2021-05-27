@@ -1,6 +1,7 @@
 .vscode
 *.code-workspace
-docker-data
+docker-data/
+pg-data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

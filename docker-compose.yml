@@ -6,23 +6,23 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    command: python main.py
+    command: gunicorn --bind 0.0.0.0:8080 balukaa.asgi:application -k uvicorn.workers.UvicornWorker
     env_file: 
       - docker.env
     ports:
       - 8080:8080
     volumes:
       - ./balukaa:/var/app
-    # depends_on:
-    #   - pg
+    depends_on:
+      - pg
 
-  # pg:
-  #   image: postgres:11
-  #   environment:
-  #     POSTGRES_PASSWORD: password
-  #     POSTGRES_USER: user
-  #     POSTGRES_DB: shop
-  #   volumes:
-  #   - ./pg-data:/var/lib/postgresql/data
-  #   ports:
-  #     - 5432:5432
+  pg:
+    image: postgres:11
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: user
+      POSTGRES_DB: shop
+    volumes:
+    - ./pg-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
