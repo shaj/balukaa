@@ -1,0 +1,28 @@
+version: "3.5"
+
+services:
+  balukaa:
+    image: andreyshaj/balukaa:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: python main.py
+    env_file: 
+      - docker.env
+    ports:
+      - 8080:8080
+    volumes:
+      - ./balukaa:/var/app
+    # depends_on:
+    #   - pg
+
+  # pg:
+  #   image: postgres:11
+  #   environment:
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_USER: user
+  #     POSTGRES_DB: shop
+  #   volumes:
+  #   - ./pg-data:/var/lib/postgresql/data
+  #   ports:
+  #     - 5432:5432
