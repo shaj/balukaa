@@ -5,9 +5,9 @@
 ## Цели проекта
 
 - Создать на Django интерфейс к простой базе данных
-- Использовать авторизацию *(¿сессии или JWT?)* и доступ для групп пользователей
+- Использовать авторизацию и доступ для групп пользователей
 - Создать отчеты и представления для данных с фильтрами
-- Развернуть с Postgres и nginx
+- Собрать рабочий Docker образ с приложением
 
 ## Что планировалось
 
@@ -64,7 +64,7 @@
 
    <img src="doc/coursework/EntriesListView.png" width="500px"/>
 
-   <img src="doc/coursework/AccountListView.png" width="500px"/>
+   <img src="doc/coursework/AccountsListView.png" width="500px"/>
 
     - Не реализован фильтр по датам для проводок.
 3. Реализована форма создания и редактирования проводки.
@@ -72,20 +72,22 @@
    <img src="doc/coursework/EntryDetailView.png" width="500px"/>
    <img src="doc/coursework/EntryEditView.png" width="500px"/>
 
-2. Реализован 1 отчет "Карточка счета" из необходимых 3
+4. Реализован отчет "Карточка счета"
 
-      <img src="doc/coursework/ACardView.png" width="500px"/>
+   <img src="doc/coursework/ACardView.png" width="500px"/>
 
-    - Для создания отчета использовались [методы класса модели](balukaa/ledger/models.py?L29-L115)
-      и метод [get_context_data](balukaa/ledger/views.py?L87-L145) представления ACardView.
+    - Для создания отчета использовались [методы класса модели](balukaa/ledger/models.py#L29-L115)
+      и метод [get_context_data](balukaa/ledger/views.py#L87-L145) представления ACardView.
     - Не оптимизированы запросы к БД. Для создания отчета из 6 строк требуется 27 запросов к БД.
 
       <img src="doc/coursework/ACardView-SQL.png" width="500px"/>
-    
-3. Права доступа
-    - Пока на основе сессий
+
+5. Права доступа
+    - На основе сессий
     - Создание групп не реализовано
-4. В github workflow происходит создание образа в Docker-е
+    - Доступ к отчетам и представлениям разрешен для любого авторизованного пользователя. С помощью [`LoginRequiredMixin`](balukaa/ledger/views.py#L30).
+    - Доступ к созданию или изменению проводки разрешается с помощью [`PermissionRequiredMixin`](balukaa/ledger/views.py#L50-L52)
+6. В github workflow происходит создание образа в Docker-е
     - Дальше этот образ не используется.
 
 ## Схемы / архитектура
