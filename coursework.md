@@ -88,7 +88,8 @@
     - Доступ к отчетам и представлениям разрешен для любого авторизованного пользователя. С помощью [`LoginRequiredMixin`](balukaa/ledger/views.py#L30).
     - Доступ к созданию или изменению проводки разрешается с помощью [`PermissionRequiredMixin`](balukaa/ledger/views.py#L50-L52)
 6. В github workflow происходит создание образа в Docker-е
-    - Дальше этот образ не используется.
+    - В образе запускается uvicorn командой `gunicorn --bind 0.0.0.0:8080 balukaa.asgi:application -k uvicorn.workers.UvicornWorker`
+    - На hub.docker.com пушится 
 
 ## Схемы / архитектура
 

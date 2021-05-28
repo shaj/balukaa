@@ -25,10 +25,7 @@
 
 # MEM
 
-[python venv activate](https://gist.github.com/shaj/5915a0d6f4d523c1991da318288ccdaf)
-
-[Примеры github workflows](https://github.com/AdCombo/flask-combo-jsonapi/tree/master/.github/workflows)
-
-Вопрос про **толстую модель**, **тонкий view** и **тупые шаблоны**
-
-[(GitHub-Flavored) Markdown Editor](https://jbt.github.io/markdown-editor/)
+- [python venv activate](https://gist.github.com/shaj/5915a0d6f4d523c1991da318288ccdaf)
+- [Примеры github workflows](https://github.com/AdCombo/flask-combo-jsonapi/tree/master/.github/workflows)
+- Вопрос про **толстую модель**, **тонкий view** и **тупые шаблоны**
+- [(GitHub-Flavored) Markdown Editor](https://jbt.github.io/markdown-editor/)
