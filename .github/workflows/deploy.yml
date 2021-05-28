@@ -30,6 +30,17 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
+      - name: Declare some variables
+        id: vars
+        shell: bash
+        run: |
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+      - name: Another step
+        run: |
+          echo "Branch: ${{ steps.vars.outputs.branch }}"
+          echo "Sha: ${{ steps.vars.outputs.sha_short }}"
+
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
@@ -42,7 +53,7 @@ jobs:
           file: ./Dockerfile
           push: true
           # tags: ${{ secrets.DOCKER_HUB_USERNAME }}/balukaa:latest
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/balukaa:${{ github.head_ref }}-$(git rev-parse --short HEAD)
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/balukaa:${{ steps.vars.outputs.branch }}.${{ steps.vars.outputs.sha_short }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
