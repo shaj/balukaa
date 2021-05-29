@@ -19,6 +19,7 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin,
     UserPassesTestMixin,
 )
+from django.urls import reverse_lazy
 from .models import Account, Entry
 from .forms import EntryForm
 
@@ -44,7 +45,7 @@ class EntryCreateView(PermissionRequiredMixin, CreateView):
     model = Entry
     template_name = "ledger/entry_edit.html"
     form_class = EntryForm
-    success_url = "/"
+    success_url = reverse_lazy("ledger")
 
 
 class EntryEditView(PermissionRequiredMixin, UpdateView):
@@ -54,7 +55,7 @@ class EntryEditView(PermissionRequiredMixin, UpdateView):
     model = Entry
     template_name = "ledger/entry_edit.html"
     form_class = EntryForm
-    success_url = "/"
+    success_url = reverse_lazy("ledger")
 
 
 class AccountsListView(LoginRequiredMixin, ListView):
