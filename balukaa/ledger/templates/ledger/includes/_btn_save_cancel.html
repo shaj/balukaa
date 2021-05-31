@@ -1,0 +1,12 @@
+{% load static %}
+<div class="d-flex justify-content-end mt-3">
+    <button class="btn btn-outline-primary mx-1" type="submit">Сохранить</button>
+    <a type="button"
+        class="btn btn-outline-primary mx-1"
+        {% if request.META.HTTP_REFERER %}
+            href="{{ request.META.HTTP_REFERER }}"
+        {% else %}
+            href="{{ btn_href }}"
+        {% endif %}
+    >Отменить</a>
+</div>

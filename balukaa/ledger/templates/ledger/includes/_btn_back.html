@@ -1,0 +1,8 @@
+{% load static %}
+<a  type="button"
+    class="btn btn-outline-primary mx-1"
+    href="{{ request.META.HTTP_REFERER }}"
+>
+    <img src="{% static 'balukaa/images/arrow-left-square.svg' %}">
+    <span class="mx-1">Назад</span>
+</a>

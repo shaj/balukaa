@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{{ block.super }}{% endblock %}
+
+{% block content %}
+
+{% include 'ledger/includes/_nav_table.html' %}
+
+<div class="d-flex justify-content-center">
+    <div class="card mb-3 ledger-cart">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img class="p-5" src="{% static 'balukaa/images/x-square.svg' %}" width="100%">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <form action="" method="post">{% csrf_token %}
+                        <h6 class="text-danger">Вы уверены, что хотите удалить проводку?</h6>
+                        <p class="text-primary">{{ entry }}</p>
+                        {% include 'ledger/includes/_btn_delete_cancel.html' %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

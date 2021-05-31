@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{{ block.super }}{% endblock %}
+
+{% block content %}
+
+{% include 'ledger/includes/_nav_table.html' %}
+
+<div class="d-flex justify-content-center">
+    {% if todos %}
+    <table class="table table-striped table-hover table-bordered table-sm">
+        <thead class="ledger-table-th table-success">
+            <tr>
+                <th scope="col">Дата</th>
+                <th scope="col">Задача</th>
+                <th scope="col">Описание</th>
+                <th scope="col">Состояние</th>
+                <th scope="col"><code>Комментарий</code></th>
+                <th scope="col"><code>Кто</code></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for todo in todos %}
+            <tr>
+                <td class="ledger-table-text">
+                    {{ todo.0 }}   {# todo.date #}
+                </td>
+                <td class="ledger-table-text">
+                    {{ todo.1 }}   {# todo.task #}
+                </td>
+                <td class="ledger-table-text">
+                    {{ todo.2|safe }}   {# todo.description #}
+                </td>
+                <td class="ledger-table-text">
+                    {% if todo.3 == 1 %}   {# todo.status #}
+                        <code>В работе</code>
+                    {% else %}
+                        Сделано
+                    {% endif %}
+                </td>
+                <td class="ledger-table-text"><code>
+                    {{ todo.4|safe }}   {# todo.comment #}
+                </td></code>
+                <td class="ledger-table-text"><code>
+                    {{ todo.5 }}   {# todo.creator #}
+                </td></code>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% comment %}
+    {% else %}
+        {% include 'includes/_cart_info.html' %}
+    {% endcomment %}
+
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{{ block.super }}{% endblock %}
+
+{% block content %}
+
+{% include 'ledger/includes/_nav_table.html' %}
+
+<div class="d-flex justify-content-center">
+    {% if accounts %}
+    <table class="table table-striped table-hover table-bordered table-sm">
+        <thead class="ledger-table-th table-success">
+            <tr>
+                <th scope="col"><code>id</code></th>
+                <th scope="col">Номер</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Полное имя</th>
+                <th scope="col" title="Число проводок со счетом"><code>Движений</code></th>
+                <th scope="col" colspan="2"><code>Действие</code></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for account in accounts %}
+            <tr>
+                <td class="ledger-table-number"><code>{{ account.id }}</code></td>
+                <td class="ledger-table-number">
+                    {{ account.number }}
+                    {% include 'ledger/includes/_account_type_sign_tooltip.html' %}
+                </td>
+                <td class="ledger-table-text">
+                    {{ account.name }}
+                    {% include 'ledger/includes/_account_type_sign_tooltip.html' %}
+                </td>
+                <td class="ledger-table-text">
+                    {{ account.full_name }}
+                    {% include 'ledger/includes/_account_type_sign_tooltip.html' %}
+                </td>
+                <td class="ledger-table-number">
+                    {% if account.get_refs != 0 %}
+                    <span class="badge bg-primary">
+                        {{ account.get_refs }}
+                    {% else %}
+                    <span class="badge text-primary bg-light">-
+                    {% endif%}
+                    </span>
+                </td>
+                <td>
+                    <a  href="{% url 'ledger:account_view' account.number %}"
+                        title = "Посмотреть счет {{ account.number }}"
+                        role="button"
+                    ><img src="{% static 'balukaa/images/eye.svg' %}"></a>
+
+                    <a  href="{% url 'ledger:account_update' account.number %}"
+                        title = "Редактировать счет {{ account.number }}"
+                        role="button"
+                    ><img src="{% static 'balukaa/images/pencil-square.svg' %}"></a>
+
+                    {% if account.get_refs == 0 %}
+                    <a  href="{% url 'ledger:account_delete' account.number %}"
+                        title = "Удалить счет {{ account.number }}"
+                    ><img src="{% static 'balukaa/images/x-square.svg' %}"></a>
+                    {% endif %}
+                </td>
+                <td>
+                    <a  href="{% url 'ledger:account_card_report' account.number %}"
+                        title = "Открыть карточку счета {{ account.number }}"
+                        role="button"
+                    ><img src="{% static 'balukaa/images/card-text.svg' %}"></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        {% include 'includes/_cart_info.html' %}
+    {% endif %}
+</div>
+
+{% endblock %}

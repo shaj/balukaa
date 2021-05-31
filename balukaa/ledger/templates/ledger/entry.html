@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{{ block.super }}{% endblock %}
+
+{% block content %}
+
+{% include 'ledger/includes/_nav_table.html' %}
+
+<div class="d-flex flex-row justify-content-center">
+    <table class="table table-striped table-hover table-bordered table-sm ledger-table-entry">
+        <thead>
+            <tr>
+                <th scope="col">Поле</th>
+                <th scope="col">Значение</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>id</code></td>
+                <td><code>{{ entry.id }}</code></td>
+            </tr>
+            <tr>
+                <td>Дата</td>
+                <td>{{ entry.date|date:'d.m.Y' }}</td>
+            </tr>
+            <tr>
+                <td>Счет 1 > Счет 2 (по номеру)</td>
+                <td>{{ entry.account_one.number }} > {{ entry.account_two.number }}</td>
+            </tr>
+            <tr>
+                <td>Счет 1 > Счет 2 (по имени)</td>
+                <td>{{ entry.account_one.name }} > {{ entry.account_two.name }}</td>
+            </tr>
+            <tr>
+                <td><code>Тип</code></td>
+                <td><code>{{ entry.get_type_display }}</code></td>
+            </tr>
+            <tr>
+                <td>Сумма</td>
+                <td>{{ entry.amount }}</td>
+            </tr>
+            <tr>
+                <td>Комментарий</td>
+                <td>{{ entry.comment }}</td>
+            </tr>
+            <tr>
+                <td><code>Состояние</code></td>
+                <td><code>{{ entry.get_status_display }}</code></td>
+            </tr>
+            <tr>
+                <td><code>Создана</code></td>
+                <td><code>{{ entry.created_at|date:'d.m.Y H:i:s' }}</code></td>
+            </tr>
+            <tr>
+                <td><code>Изменена</code></td>
+                <td><code>{{ entry.updated_at|date:'d.m.Y H:i:s' }}</code></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="d-flex flex-row justify-content-center">
+    {% if request.META.HTTP_REFERER %}
+        {% include 'ledger/includes/_btn_back.html' %}
+    {% endif %}
+
+    <a  class="btn btn-outline-primary mx-1"
+        href="{% url 'ledger:entry_update' entry.id %}"
+    >
+        <img src="{% static 'balukaa/images/pencil-square.svg' %}">
+        <span class="mx-1">Изменить</span>
+    </a>
+
+    <a  class="btn btn-outline-primary  mx-1"
+        href="{% url 'ledger:entry_delete' entry.id %}"
+    >
+        <img src="{% static 'balukaa/images/x-square.svg' %}">
+        <span class="mx-1">Удалить</span>
+    </a>
+</div>
+
+{% endblock %}

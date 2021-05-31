@@ -18,21 +18,28 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from userapp.views import NewUserView, LedgerLoginView
-from django.contrib.auth.views import LoginView, LogoutView
-
-
+from django.views.generic import TemplateView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('ledger.urls')),
-    
-    path('register/', NewUserView.as_view()),
-    path('login/', LedgerLoginView.as_view()),
-    path('logout/', LogoutView.as_view()),
     path('__debug__/', include(debug_toolbar.urls)),
+    path('admin/', admin.site.urls),
+    path('',
+         TemplateView.as_view(
+             template_name="home.html",
+             extra_context={"title": "Главная"}),
+         name='home'
+         ),
+    path('about/',
+         TemplateView.as_view(
+             template_name="about.html",
+             extra_context={"title": "О нас"}),
+         name='about'
+         ),
+    path('', include('todo.urls', namespace='todo')),
+    path('', include('registration.urls', namespace='registration')),
+    path('ledger/', include('ledger.urls', namespace='ledger')),
 ]
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

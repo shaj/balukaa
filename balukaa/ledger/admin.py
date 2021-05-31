@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import Account, Entry
+from .models import LedgerAccount, LedgerEntry
 
 
-# Register your models here.
-admin.site.register(Account)
-admin.site.register(Entry)
+admin.site.register(LedgerAccount)
+admin.site.register(LedgerEntry)

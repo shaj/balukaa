@@ -1,0 +1,14 @@
+/*
+ul .container-fluid {
+    margin-bottom: 0;
+}
+*/
+body, .dropdown-menu {
+    font-size: 0.95rem;
+    font-weight: 150;
+    line-height: 1;
+}
+
+.ledger-amount {
+    text-align: right;
+}

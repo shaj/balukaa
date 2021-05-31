@@ -20,22 +20,22 @@ ACCOUNTS = [
 
 
 ENTRIES = [
-    ('Test 1 1', date(2021, 1, 11), '51', '50', '-+', '1100.01', True),
-    ('Test 2 1', date(2021, 1, 13), '50', '60', '--', '1200.02', True),
-    ('Test 3 1', date(2021, 1, 15), '62', '60', '++', '1300.03', True),
-    ('Test 4 1', date(2021, 1, 17), '62', '75', '--', '1400.04', True),
-    ('Test 1 2', date(2021, 1, 19), '51', '50', '-+', '2100.01', True),
-    ('Test 2 2', date(2021, 1, 21), '50', '60', '--', '2200.02', True),
-    ('Test 3 2', date(2021, 1, 23), '62', '60', '++', '2300.03', False),
-    ('Test 4 2', date(2021, 2, 10), '62', '75', '--', '2400.04', False),
-    ('Test 1 3', date(2021, 2, 12), '51', '50', '-+', '3100.01', False),
-    ('Test 2 3', date(2021, 2, 14), '50', '60', '--', '3200.02', False),
-    ('Test 3 3', date(2021, 2, 16), '62', '60', '++', '3300.03', True),
-    ('Test 4 3', date(2021, 2, 18), '62', '75', '--', '3400.04', True),
-    ('Test 1 4', date(2021, 3, 11), '51', '50', '-+', '4100.01', True),
-    ('Test 2 4', date(2021, 3, 13), '50', '60', '--', '4200.02', True),
-    ('Test 3 4', date(2021, 3, 15), '62', '60', '++', '4300.03', True),
-    ('Test 4 4', date(2021, 3, 17), '62', '75', '--', '4400.04', True),
+    ('Test 1 1', date(2021, 1, 11), '51', '50', 0, '1100.01', True),
+    ('Test 2 1', date(2021, 1, 13), '50', '60', -1, '1200.02', True),
+    ('Test 3 1', date(2021, 1, 15), '62', '60', 1, '1300.03', True),
+    ('Test 4 1', date(2021, 1, 17), '62', '75', -1, '1400.04', True),
+    ('Test 1 2', date(2021, 1, 19), '51', '50', 0, '2100.01', True),
+    ('Test 2 2', date(2021, 1, 21), '50', '60', -1, '2200.02', True),
+    ('Test 3 2', date(2021, 1, 23), '62', '60', 1, '2300.03', False),
+    ('Test 4 2', date(2021, 2, 10), '62', '75', -1, '2400.04', False),
+    ('Test 1 3', date(2021, 2, 12), '51', '50', 0, '3100.01', False),
+    ('Test 2 3', date(2021, 2, 14), '50', '60', -1, '3200.02', False),
+    ('Test 3 3', date(2021, 2, 16), '62', '60', 1, '3300.03', True),
+    ('Test 4 3', date(2021, 2, 18), '62', '75', -1, '3400.04', True),
+    ('Test 1 4', date(2021, 3, 11), '51', '50', 0, '4100.01', True),
+    ('Test 2 4', date(2021, 3, 13), '50', '60', -1, '4200.02', True),
+    ('Test 3 4', date(2021, 3, 15), '62', '60', 1, '4300.03', True),
+    ('Test 4 4', date(2021, 3, 17), '62', '75', -1, '4400.04', True),
 ]
 
 
@@ -48,18 +48,18 @@ class TestACardView(TestCase):
             self.accounts[str(el[0])] = Account.objects.create(
                 number=el[0],
                 name=el[1],
-                fullName=el[2],
+                full_name=el[2],
                 is_active=el[3]
             )
         for el in ENTRIES:
             Entry.objects.create(
                 name=el[0],
                 date=el[1],
-                fAccount=self.accounts[el[2]],
-                lAccount=self.accounts[el[3]],
-                entryType=el[4],
-                summ=el[5],
-                is_enter=el[6]
+                account_one=self.accounts[el[2]],
+                account_two=self.accounts[el[3]],
+                entry_type=el[4],
+                sum=el[5],
+                is_active=el[6]
             )
 
         self.user = LedgerUser.objects.create_user(username='user',
@@ -102,18 +102,18 @@ class TestACardView(TestCase):
         self.assertEqual(response.context['last'], date(2021, 3, 17))
         self.assertIn('account', response.context)
         self.assertEqual(response.context['account'].number, 50)
-        self.assertIn('begin_balance', response.context)
-        self.assertDictEqual(response.context['begin_balance'],
+        self.assertIn('opening_balance', response.context)
+        self.assertDictEqual(response.context['opening_balance'],
                              {
             'arrival': Decimal('0.00'),
-            'expence': Decimal('0.00'),
+            'expense': Decimal('0.00'),
             'balance': Decimal('0.00'),
         })
-        self.assertIn('end_balance', response.context)
-        self.assertDictEqual(response.context['end_balance'],
+        self.assertIn('final_balance', response.context)
+        self.assertDictEqual(response.context['final_balance'],
                              {
             'arrival': Decimal('7300.03'),
-            'expence': Decimal('7600.06'),
+            'expense': Decimal('7600.06'),
             'balance': Decimal('-300.03'),
         })
 
@@ -130,17 +130,17 @@ class TestACardView(TestCase):
         self.assertEqual(response.context['last'], date(2021, 3, 11))
         self.assertIn('account', response.context)
         self.assertEqual(response.context['account'].number, 50)
-        self.assertIn('begin_balance', response.context)
-        self.assertDictEqual(response.context['begin_balance'],
+        self.assertIn('opening_balance', response.context)
+        self.assertDictEqual(response.context['opening_balance'],
                              {
             'arrival': Decimal('1100.01'),
-            'expence': Decimal('1200.02'),
+            'expense': Decimal('1200.02'),
             'balance': Decimal('-100.01'),
         })
-        self.assertIn('end_balance', response.context)
-        self.assertDictEqual(response.context['end_balance'],
+        self.assertIn('final_balance', response.context)
+        self.assertDictEqual(response.context['final_balance'],
                              {
             'arrival': Decimal('7300.03'),
-            'expence': Decimal('3400.04'),
+            'expense': Decimal('3400.04'),
             'balance': Decimal('3899.99'),
         })

@@ -1,0 +1,15 @@
+{% load static %}
+<div class="d-flex justify-content-end">
+    <button class="btn btn-outline-danger mx-1" type="submit">
+        <img src="{% static 'balukaa/images/x-square.svg' %}">
+        <span class="mx-1">Удалить</span>
+    </button>
+    <a  type="button"
+        class="btn btn-outline-primary mx-1"
+        {% if request.META.HTTP_REFERER %}
+            href="{{ request.META.HTTP_REFERER }}"
+        {% else %}
+            href="{{ btn_href }}"
+        {% endif %}
+    >Отменить</a>
+</div>

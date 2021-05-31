@@ -1,23 +1,20 @@
 from django.core.management.base import BaseCommand
-import datetime
-from django.utils import timezone
-from ledger.models import Account, Entry
-from pprint import pprint
+from ledger.models import LedgerAccount, LedgerEntry
 
 
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        entry3 = Entry.objects.all().first()
+        entry3 = LedgerEntry.objects.all().first()
 
         print('id', entry3.id)
-        print('entryType', entry3.entryType)
+        print('type', entry3.type)
 
-        print(entry3.summ)
-        a = entry3.summ
+        print(entry3.amount)
+        a = entry3.amount
         print(type(a), a)
         
-        print(type(Entry.EntryType.MOVE), repr(Entry.EntryType.MOVE))
-        print(type(Entry.EntryType['MOVE'].label), repr(Entry.EntryType['MOVE'].label))
-        print(type(Entry.EntryType.MOVE.value), repr(Entry.EntryType.MOVE.value))
+        print(type(LedgerEntry.EntryTypes.MOVE), repr(LedgerEntry.EntryTypes.MOVE))
+        print(type(LedgerEntry.EntryTypes['MOVE'].label), repr(LedgerEntry.EntryTypes['MOVE'].label))
+        print(type(LedgerEntry.EntryTypes.MOVE.value), repr(LedgerEntry.EntryTypes.MOVE.value))

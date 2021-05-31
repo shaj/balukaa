@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{{ block.super }}{% endblock %}
+
+{% block content %}
+<h3 class="text-center">О нас</h3>
+
+<div class="d-flex flex-row justify-content-center mt-4">
+    <div class="card text-center ledger-cart-info">
+        <div class="card-body">
+            <h6 class="card-title">Москалев Сергей</h6>
+            <p class="card-text"><code>aka Burcador</code></p>
+            <p class="card-text">автор идеи, постановщик задач, разработчик</p>
+        </div>
+        <img class="p-4" src="{% static 'balukaa/images/burcador.svg' %}" width="100%">
+    </div>
+    <div class="card text-center ledger-cart-info mx-3">
+        <div class="card-body">
+            <h6 class="card-title">Щебалев Андрей</h6>
+            <p class="card-text"><code>aka Shaj</code></p>
+            <p class="card-text">главный разработчик, технолог</p>
+        </div>
+        <img class="p-5" src="{% static 'balukaa/images/shaj.svg' %}" width="100%">
+    </div>
+</div>
+
+{% endblock %}
