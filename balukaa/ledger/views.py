@@ -6,12 +6,13 @@ from dataclasses import dataclass
 from django.db.models.query import QuerySet
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from django.utils.formats import date_format
 from django.views.generic import ListView, TemplateView, DetailView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from .models import LedgerAccount, LedgerEntry
 from .forms import LedgerEntryForm, LedgerAccountForm
+from balukaa.nav_main_list import MENU
 
 
 class AccountsBookListView(LoginRequiredMixin, ListView):
@@ -26,12 +27,14 @@ class AccountsBookListView(LoginRequiredMixin, ListView):
         btn_href =  ссылка для кнопки navbar content
         btn_text =  текст для кнопки navbar content
         cart_text = текст info-cart, вызываемой в случае отсутствия записей
+        menu_list = список элементов dropdown меню: {item-group, item-text, item-url}
         """
         context = super().get_context_data(**kwargs)
         context['title'] = 'План счетов'
-        context['btn_href'] = reverse('ledger:account_create')
+        context['btn_href'] = reverse_lazy('ledger:account_create')
         context['btn_text'] = 'Новый счет'
         context['cart_text'] = 'В плане счетов нет записей!'
+        context['menu_list'] = MENU
         return context
 
     def get_queryset(self):
@@ -50,11 +53,13 @@ class AccountView(LoginRequiredMixin, DetailView):
         title =     title сайта; заголовок navbar content
         btn_href =  ссылка для кнопки navbar content
         btn_text =  текст для кнопки navbar content
+        menu_list = список элементов dropdown меню: {item-group, item-text, item-url}
         """
         context = super().get_context_data(**kwargs)
         context['title'] = 'Бухгалтерский счет'
-        context['btn_href'] = reverse('ledger:accounts_book')
+        context['btn_href'] = reverse_lazy('ledger:accounts_book')
         context['btn_text'] = 'План счетов'
+        context['menu_list'] = MENU
         return context
 
     def get_object(self):
@@ -79,11 +84,13 @@ class AccountCreateView(PermissionRequiredMixin, CreateView):
         title =     title сайта; заголовок navbar content
         btn_href =  ссылка для кнопки navbar content
         btn_text =  текст для кнопки navbar content
+        menu_list = список элементов dropdown меню: {item-group, item-text, item-url}
         """
         context = super().get_context_data(**kwargs)
         context['title'] = f"Создать бухгалтерский счет"
-        context['btn_href'] = reverse('ledger:accounts_book')
+        context['btn_href'] = reverse_lazy('ledger:accounts_book')
         context['btn_text'] = 'План счетов'
+        context['menu_list'] = MENU
         return context
 
 
@@ -100,11 +107,13 @@ class AccountUpdateView(PermissionRequiredMixin, UpdateView):
         title =     title сайта; заголовок navbar content
         btn_href =  ссылка для кнопки navbar content
         btn_text =  текст для кнопки navbar content
+        menu_list = список элементов dropdown меню: {item-group, item-text, item-url}
         """
         context = super().get_context_data(**kwargs)
         context['title'] = f"Изменить бухгалтерский счет { self.kwargs.get('number') }"
-        context['btn_href'] = reverse('ledger:accounts_book')
+        context['btn_href'] = reverse_lazy('ledger:accounts_book')
         context['btn_text'] = 'План счетов'
+        context['menu_list'] = MENU
         return context
 
     def get_object(self):
@@ -120,7 +129,7 @@ class AccountDeleteView(PermissionRequiredMixin, DeleteView):
     permission_required = 'account.delete_choice'
     model = LedgerAccount
     template_name = 'ledger/account_delete.html'
-    success_url = reverse_lazy('ledger:accounts_book')
+    success_url = reverse_lazy('ledger:accounts_book')   # TODO: разобраться почему не работает reverse('ledger:accounts_book')
     context_object_name = 'account'
 
     def get_context_data(self, **kwargs):
@@ -130,14 +139,16 @@ class AccountDeleteView(PermissionRequiredMixin, DeleteView):
         btn_href =  ссылка для кнопки navbar content
         btn_text =  текст для кнопки navbar content
         cart_text = текст info-cart, вызываемой в случае отсутствия записей
+        menu_list = список элементов dropdown меню: {item-group, item-text, item-url}
         """
         context = super().get_context_data(**kwargs)
         context['title'] = f"Удалить счет: {context['account'].number} {context['account'].name}"
-        context['btn_href'] = reverse('ledger:accounts_book')
+        context['btn_href'] = reverse_lazy('ledger:accounts_book')
         context['btn_text'] = 'План счетов'
         context['cart_text'] = f"Счет: {context['account'].number} {context['account'].name}, " \
                                f"до удаления связанных с ним {context['account'].get_refs()} движений " \
                                f"в журнале проводок, удалить нельзя!"
+        context['menu_list'] = MENU
         return context
 
     def get_object(self):
@@ -161,12 +172,14 @@ class EntriesJournalListView(LoginRequiredMixin, ListView):
         btn_href =  ссылка для кнопки navbar content
         btn_text =  текст для кнопки navbar content
         cart_text = текст info-cart, вызываемой в случае отсутствия записей
+        menu_list = список элементов dropdown меню: {item-group, item-text, item-url}
         """
         context = super().get_context_data(**kwargs)
         context['title'] = 'Журнал проводок'
-        context['btn_href'] = reverse('ledger:entry_create')
+        context['btn_href'] = reverse_lazy('ledger:entry_create')
         context['btn_text'] = 'Новая проводка'
         context['cart_text'] = 'В журнале проводок нет записей!'
+        context['menu_list'] = MENU
         return context
 
 
@@ -182,11 +195,13 @@ class EntryView(LoginRequiredMixin, DetailView):
         title =     title сайта; заголовок navbar content
         btn_href =  ссылка для кнопки navbar content
         btn_text =  текст для кнопки navbar content
+        menu_list = список элементов dropdown меню: {item-group, item-text, item-url}
         """
         context = super().get_context_data(**kwargs)
         context['title'] = 'Проводка'
-        context['btn_href'] = reverse('ledger:entries_journal')
+        context['btn_href'] = reverse_lazy('ledger:entries_journal')
         context['btn_text'] = 'Журнал проводок'
+        context['menu_list'] = MENU
         return context
 
 
@@ -203,14 +218,16 @@ class EntryCreateView(PermissionRequiredMixin, CreateView):
         title =     title сайта; заголовок navbar content
         btn_href =  ссылка для кнопки navbar content
         btn_text =  текст для кнопки navbar content
+        menu_list = список элементов dropdown меню: {item-group, item-text, item-url}
         """
         context = super().get_context_data(**kwargs)
         context['title'] = 'Создать проводку'
-        context['btn_href'] = reverse('ledger:entries_journal')
+        context['btn_href'] = reverse_lazy('ledger:entries_journal')
         context['btn_text'] = 'Журнал проводок'
+        context['menu_list'] = MENU
         return context
 
-    
+
 class EntryUpdateView(PermissionRequiredMixin, UpdateView):
     permission_required = 'entry.change_choice'
     model = LedgerEntry
@@ -224,11 +241,13 @@ class EntryUpdateView(PermissionRequiredMixin, UpdateView):
         title =     title сайта; заголовок navbar content
         btn_href =  ссылка для кнопки navbar content
         btn_text =  текст для кнопки navbar content
+        menu_list = список элементов dropdown меню: {item-group, item-text, item-url}
         """
         context = super().get_context_data(**kwargs)
         context['title'] = f"Изменить проводку id={ self.kwargs.get('pk') }"
-        context['btn_href'] = reverse('ledger:entries_journal')
+        context['btn_href'] = reverse_lazy('ledger:entries_journal')
         context['btn_text'] = 'Журнал проводок'
+        context['menu_list'] = MENU
         return context
 
 
@@ -236,7 +255,7 @@ class EntryDeleteView(PermissionRequiredMixin, DeleteView):
     permission_required = 'entry.delete_choice'
     model = LedgerEntry
     template_name = 'ledger/entry_delete.html'
-    success_url = reverse_lazy('ledger:entries_journal')
+    success_url = reverse_lazy('ledger:entries_journal') # TODO: разобраться почему не работает reverse('ledger:entries_journal')
     context_object_name = 'entry'
     # form_class = LedgerEntryForm
 
@@ -246,11 +265,13 @@ class EntryDeleteView(PermissionRequiredMixin, DeleteView):
         title =     title сайта; заголовок navbar content
         btn_href =  ссылка для кнопки navbar content
         btn_text =  текст для кнопки navbar content
+        menu_list = список элементов dropdown меню: {item-group, item-text, item-url}
         """
         context = super().get_context_data(**kwargs)
         context['title'] = f"Удалить проводку id={ self.kwargs.get('pk') }"
-        context['btn_href'] = reverse('ledger:entries_journal')
+        context['btn_href'] = reverse_lazy('ledger:entries_journal')
         context['btn_text'] = 'Журнал проводок'
+        context['menu_list'] = MENU
         return context
 
 
@@ -265,12 +286,14 @@ class MovementsReportListView(LoginRequiredMixin, ListView):
         btn_href =  ссылка для кнопки navbar content
         btn_text =  текст для кнопки navbar content
         cart_text = текст info-cart, вызываемой в случае отсутствия записей
+        menu_list = список элементов dropdown меню: {item-group, item-text, item-url}
         """
         context = super().get_context_data(**kwargs)
         context['title'] = 'Движения по журналу проводок'
-        context['btn_href'] = reverse('ledger:entries_journal')
+        context['btn_href'] = reverse_lazy('ledger:entries_journal')
         context['btn_text'] = 'Журнал проводок'
         context['cart_text'] = 'В журнале проводок нет движений!'
+        context['menu_list'] = MENU
         return context
 
     def get_queryset(self) -> QuerySet:
@@ -308,6 +331,7 @@ class AccountCardReportView(LoginRequiredMixin, TemplateView):
         btn_href =  ссылка для кнопки navbar content
         btn_text =  текст для кнопки navbar content
         cart_text = текст info-cart, вызываемой в случае отсутствия записей
+        menu_list = список элементов dropdown меню: {item-group, item-text, item-url}
         """
         context = super().get_context_data(**kwargs)
 
@@ -374,9 +398,10 @@ class AccountCardReportView(LoginRequiredMixin, TemplateView):
         context['title'] = f'Карточка по счету: {account.number} {account.name} / ' \
                            f"Фильтр: от { date_format(date_from, 'SHORT_DATE_FORMAT') } " \
                            f"до { date_format(date_to, 'SHORT_DATE_FORMAT') }"
-        context['btn_href'] = reverse('ledger:accounts_book')
+        context['btn_href'] = reverse_lazy('ledger:accounts_book')
         context['btn_text'] = 'План счетов'
         context['cart_text'] = f'В указанном периоде по счету: {account.number}\xa0{account.name}, - не было движений!'
+        context['menu_list'] = MENU
         return context
 
 
@@ -396,21 +421,23 @@ class AccountBalanceReportView(LoginRequiredMixin, TemplateView):
         2.1) если сальдо '+', то отображать в Пассивах (это наш долг), иначе в Активах (это долг нам)
         2.2) в дальнейшем ту часть, например, Поставщиков, у которых сальдо '+', отображать в Пассивах,
         остальных в Активах (долги нам - это активы, которыми необходимо управлять)
-
-    Переменные шаблона:
-    active_accounts = активные счета для раздела Актива Баланса
-    source_accounts = пассивные и изменчивые счета для раздела Пассива Баланса
-    actives_balance = сальдо Активов
-    sources_balance = сальдо Пассивов
-    balance =         баланс Активов и Пассивов - должен быть 0
-
-    title =     title сайта; заголовок navbar content
-    btn_href =  ссылка для кнопки navbar content
-    btn_text =  текст для кнопки navbar content
     """
     template_name = 'ledger/account_balance_report.html'
 
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        """ Переменные шаблона
+
+        active_accounts = активные счета для раздела Актива Баланса
+        source_accounts = пассивные и изменчивые счета для раздела Пассива Баланса
+        actives_balance = сальдо Активов
+        sources_balance = сальдо Пассивов
+        balance =         баланс Активов и Пассивов - должен быть 0
+
+        title =     title сайта; заголовок navbar content
+        btn_href =  ссылка для кнопки navbar content
+        btn_text =  текст для кнопки navbar content
+        menu_list = список элементов dropdown меню: {item-group, item-text, item-url}
+        """
         context = super().get_context_data(**kwargs)
 
         date_report = datetime.now()    # В будущем сделать выбор даты !!!
@@ -446,7 +473,7 @@ class AccountBalanceReportView(LoginRequiredMixin, TemplateView):
         context['balance'] = actives_balance - sources_balance
 
         context['title'] = f"Баланс на дату: {date_format(date_report, 'SHORT_DATE_FORMAT')}"
-        context['btn_href'] = reverse('ledger:accounts_book')
+        context['btn_href'] = reverse_lazy('ledger:accounts_book')
         context['btn_text'] = 'План счетов'
-
+        context['menu_list'] = MENU
         return context

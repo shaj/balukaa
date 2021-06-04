@@ -10,14 +10,12 @@
   <title>{% block title %} : Балукаа{% endblock %}</title>
 </head>
 <body>
-
-{% include 'includes/_nav.html' %}
-
+  {# ------- ГЛАВНОЕ МЕНЮ ------- #}
+  {% include 'includes/_nav_main.html' %}
   <div class="container">
+    {# ------- СОДЕРЖИМОЕ ------ #}
     {% block content %}{% endblock %}
   </div>
-
   <script src="{% static 'balukaa/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-
 </body>
 </html>

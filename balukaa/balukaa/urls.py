@@ -19,22 +19,31 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
+from .nav_main_list import MENU
 
 urlpatterns = [
     path('__debug__/', include(debug_toolbar.urls)),
     path('admin/', admin.site.urls),
+
     path('',
          TemplateView.as_view(
              template_name="home.html",
-             extra_context={"title": "Главная"}),
+             extra_context={
+                 'title': 'Главная',
+                 'menu_list': MENU,
+             }),
          name='home'
          ),
     path('about/',
          TemplateView.as_view(
              template_name="about.html",
-             extra_context={"title": "О нас"}),
+             extra_context={
+                 "title": "О нас",
+                 'menu_list': MENU,
+             }),
          name='about'
          ),
+
     path('', include('todo.urls', namespace='todo')),
     path('', include('registration.urls', namespace='registration')),
     path('ledger/', include('ledger.urls', namespace='ledger')),
