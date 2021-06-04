@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}{{ title }}{{ block.super }}{% endblock %}
 {% block content %}
     {# ------- ЛОКАЛЬНОЕ МЕНЮ ------- #}
@@ -10,39 +11,44 @@
         <table class="table table-striped table-hover table-bordered table-sm">
             <thead class="ledger-table-th table-success">
                 <tr>
+                    <th scope="col"><code title="Состояние задачи">?</code></th>
                     <th scope="col">Дата</th>
                     <th scope="col">Задача</th>
                     <th scope="col">Описание</th>
-                    <th scope="col">Состояние</th>
                     <th scope="col"><code>Комментарий</code></th>
                     <th scope="col"><code>Кто</code></th>
                 </tr>
             </thead>
             <tbody>
-                {% for todo in todos %}
+                {% for todo in todos reversed %}
                 <tr>
-                    <td class="ledger-table-text">
-                        {{ todo.0 }}   {# todo.date #}
+                    <td class="ledger-table-comment">
+                        <code data-toggle="tooltip"
+                              data-placement="right"
+                              title="{{ todo.get_status_display }}"
+                        >
+                            {% if todo.status %}
+                                <img src="{% static 'balukaa/images/toggle-on.svg' %}">
+                            {% else %}
+                                <img src="{% static 'balukaa/images/toggle-off.svg' %}">
+                            {% endif %}
+                        </code>
+                    </td>
+                    <td class="ledger-table-date">
+                        {{ todo.date_range_map|safe }}
                     </td>
                     <td class="ledger-table-text">
-                        {{ todo.1 }}   {# todo.task #}
+                        {{ todo.task_map|safe }}
                     </td>
                     <td class="ledger-table-text">
-                        {{ todo.2|safe }}   {# todo.description #}
+                        {{ todo.description_map|safe }}
                     </td>
-                    <td class="ledger-table-text">
-                        {% if todo.3 == 1 %}   {# todo.status #}
-                            <code>В работе</code>
-                        {% else %}
-                            Сделано
-                        {% endif %}
+                    <td class="ledger-table-comment">
+                        {{ todo.comment_map|safe }}
                     </td>
-                    <td class="ledger-table-text"><code>
-                        {{ todo.4|safe }}   {# todo.comment #}
-                    </code></td>
-                    <td class="ledger-table-text"><code>
-                        {{ todo.5 }}   {# todo.creator #}
-                    </code></td>
+                    <td class="ledger-table-comment">
+                        {{ todo.creator_map|safe }}
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

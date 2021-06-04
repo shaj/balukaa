@@ -40,9 +40,11 @@ class LedgerAccount(TimeStampMixin):
     )
 
     def __str__(self):
+        # TODO: переделать на "%s ..." % (self.number, ...)
         return f'{self.number} {self.name}'
 
     def get_description(self):
+        # TODO: переделать на "%s ..." % (self.number, ...)
         return f'Счет: {self.number}, ' \
                f'имя: {self.name}, ' \
                f'тип: {self.get_type()}'
@@ -218,6 +220,7 @@ class LedgerEntry(TimeStampMixin):
     )
 
     def __str__(self):
+        # TODO: переделать на "%s ..." % (self.number, ...)
         return f'id:{self.pk}, ' \
                f"{date_format(self.date, 'SHORT_DATE_FORMAT')}, " \
                f'{self.comment}, ' \
@@ -227,6 +230,7 @@ class LedgerEntry(TimeStampMixin):
                f'{self.get_status()}'
 
     def get_description(self):
+        # TODO: переделать на "%s ..." % (self.number, ...)
         return f'Проводка: {self.comment}, ' \
                f'id: {self.pk}, ' \
                f"дата: {date_format(self.date, 'SHORT_DATE_FORMAT')}, " \

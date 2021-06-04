@@ -1,14 +1,84 @@
-/*
-ul .container-fluid {
-    margin-bottom: 0;
+body {
+    font-family: var(--bs-font-sans-serif);
+    font-weight: 200;
 }
-*/
-body, .dropdown-menu {
+
+table {
+    font-family: var(--bs-font-monospace);
     font-size: 0.95rem;
-    font-weight: 150;
     line-height: 1;
 }
 
-.ledger-amount {
+.ledger-table-amount {
     text-align: right;
 }
+
+.ledger-table-th {
+    text-align: center;
+}
+
+.ledger-table-total-text {
+    text-align: left;
+}
+
+.ledger-table-number {
+    text-align: center;
+}
+
+.ledger-table-text {
+    text-align: left;
+    font-family: var(--bs-font-sans-serif);
+}
+
+.ledger-table-type {
+    text-align: center;
+    font-family: var(--bs-font-sans-serif);
+}
+
+.ledger-table-date {
+    text-align: center;
+    font-family: var(--bs-font-sans-serif);
+}
+
+.ledger-table-comment {
+    text-align: left;
+    font-family: var(--bs-font-sans-serif);
+    color: dark-green;
+}
+
+.ledger-table-account-cart,
+.ledger-table-account-balance,
+.ledger-table-account,
+.ledger-table-entry,
+.ledger-cart {
+    width: 50%;
+}
+
+.ledger-cart-info {
+    width: 17%;
+}
+
+.ledger-btn {
+    width: 10%;
+}
+
+/*
+img.ledger-img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+*/
+
+span.strong {
+    font-weight: bold;
+    color: dark-grey;
+}
+
+span.incline {
+    font-style: italic;
+}
+span.entity {
+    color: blue;
+}
+
