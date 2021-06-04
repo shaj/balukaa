@@ -1,45 +1,42 @@
 {% extends 'base.html' %}
-
 {% block title %}{{ title }}{{ block.super }}{% endblock %}
-
 {% block content %}
-
-{% include 'ledger/includes/_nav_table.html' %}
-
-<div class="d-flex justify-content-center">
-    {% if entries %}
-    <table class="table table-striped table-hover table-bordered table-sm">
-        <thead class="ledger-table-th table-success">
-            <tr>
-                <th scope="col"><code>id</code></th>
-                <th scope="col">Дата</th>
-                <th scope="col" colspan="2">Счет 1&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;Счет 2</th>
-                <th scope="col">Сумма</th>
-                <th scope="col">Комментарий</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entry in entries %}
-            <tr>
-                <td class="ledger-table-number"><code>{{ entry.id }}</code></td>
-                <td class="ledger-table-date">{{ entry.date|date:'d.m.Y' }}</td>
-                <td class="ledger-table-number">
-                    <code>{{ entry.get_account_one_type_symbol }}</code>{{ entry.account_one.number }}
-                    <code>{{ entry.get_account_two_type_symbol }}</code>{{ entry.account_two.number }}
-                </td>
-                <td class="ledger-table-text">
-                    <code>{{ entry.get_account_one_type_symbol }}</code>{{ entry.account_one.name }}
-                    <code>{{ entry.get_account_two_type_symbol }}</code>{{ entry.account_two.name }}
-                </td>
-                <td class="ledger-table-amount">{{ entry.amount }}</td>
-                <td class="ledger-table-text">{{ entry.comment }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% else %}
-        {% include 'includes/_cart_info.html' %}
-    {% endif %}
-</div>
-
+    {# ------- ЛОКАЛЬНОЕ МЕНЮ ------- #}
+    {% include 'ledger/includes/_nav_table.html' %}
+    {# ------- ОТЧЕТ ------- #}
+    <div class="d-flex justify-content-center">
+        {% if entries %}
+        <table class="table table-striped table-hover table-bordered table-sm">
+            <thead class="ledger-table-th table-success">
+                <tr>
+                    <th scope="col"><code>id</code></th>
+                    <th scope="col">Дата</th>
+                    <th scope="col" colspan="2">Счет 1&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;Счет 2</th>
+                    <th scope="col">Сумма</th>
+                    <th scope="col">Комментарий</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in entries %}
+                <tr>
+                    <td class="ledger-table-number"><code>{{ entry.id }}</code></td>
+                    <td class="ledger-table-date">{{ entry.date|date:'d.m.Y' }}</td>
+                    <td class="ledger-table-number">
+                        <code>{{ entry.get_account_one_type_symbol }}</code>{{ entry.account_one.number }}
+                        <code>{{ entry.get_account_two_type_symbol }}</code>{{ entry.account_two.number }}
+                    </td>
+                    <td class="ledger-table-text">
+                        <code>{{ entry.get_account_one_type_symbol }}</code>{{ entry.account_one.name }}
+                        <code>{{ entry.get_account_two_type_symbol }}</code>{{ entry.account_two.name }}
+                    </td>
+                    <td class="ledger-table-amount">{{ entry.amount }}</td>
+                    <td class="ledger-table-text">{{ entry.comment }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            {% include 'includes/_cart_info.html' %}
+        {% endif %}
+    </div>
 {% endblock %}

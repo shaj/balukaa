@@ -1,6 +1,11 @@
 {% load static %}
+{# ------- УПРАВЛЯЮЩИЕ КНОПКИ, для многократного использования в формах ------- #}
 <div class="d-flex justify-content-end mt-3">
+    {# ------- КНОПКА СОХРАНИТЬ ------- #}
     <button class="btn btn-outline-primary mx-1" type="submit">Сохранить</button>
+    {# ------- КНОПКА ОТМЕНИТЬ ------- #}
+    {# TODO: надо доработать, при использовании в формах, если форма не прошла валидацию перестает работать #}
+    {# TODO: добавить картинку cancel.svg #}
     <a type="button"
         class="btn btn-outline-primary mx-1"
         {% if request.META.HTTP_REFERER %}

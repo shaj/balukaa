@@ -129,7 +129,8 @@ class AccountDeleteView(PermissionRequiredMixin, DeleteView):
     permission_required = 'account.delete_choice'
     model = LedgerAccount
     template_name = 'ledger/account_delete.html'
-    success_url = reverse_lazy('ledger:accounts_book')   # TODO: разобраться почему не работает reverse('ledger:accounts_book')
+    # TODO: разобраться почему не работает reverse('ledger:accounts_book')
+    success_url = reverse_lazy('ledger:accounts_book')
     context_object_name = 'account'
 
     def get_context_data(self, **kwargs):
@@ -145,6 +146,8 @@ class AccountDeleteView(PermissionRequiredMixin, DeleteView):
         context['title'] = f"Удалить счет: {context['account'].number} {context['account'].name}"
         context['btn_href'] = reverse_lazy('ledger:accounts_book')
         context['btn_text'] = 'План счетов'
+
+        # TODO: Добавить проверку, т.к. если проводка сохранена с пустыми счетами, выдает ошибку
         context['cart_text'] = f"Счет: {context['account'].number} {context['account'].name}, " \
                                f"до удаления связанных с ним {context['account'].get_refs()} движений " \
                                f"в журнале проводок, удалить нельзя!"
@@ -206,6 +209,8 @@ class EntryView(LoginRequiredMixin, DetailView):
 
 
 class EntryCreateView(PermissionRequiredMixin, CreateView):
+    # TODO: сделать валидацию, в т.ч. проверку на ввод счета-1 и счета-2
+    # TODO: изучить возможность добавить проверку корректности проводок (пример: +50 +60, а не +60 +50)
     permission_required = 'entry.add_choice'
     model = LedgerEntry
     template_name = 'ledger/entry_edit.html'  # entry_create.html
@@ -255,7 +260,8 @@ class EntryDeleteView(PermissionRequiredMixin, DeleteView):
     permission_required = 'entry.delete_choice'
     model = LedgerEntry
     template_name = 'ledger/entry_delete.html'
-    success_url = reverse_lazy('ledger:entries_journal') # TODO: разобраться почему не работает reverse('ledger:entries_journal')
+    # TODO: разобраться почему не работает reverse('ledger:entries_journal')
+    success_url = reverse_lazy('ledger:entries_journal')
     context_object_name = 'entry'
     # form_class = LedgerEntryForm
 

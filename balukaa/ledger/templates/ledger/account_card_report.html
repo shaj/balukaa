@@ -1,75 +1,73 @@
 {% extends 'base.html' %}
-
 {% block title %}{{ title }}{{ block.super }}{% endblock %}
-
 {% block content %}
-
-{% include 'ledger/includes/_nav_table.html' %}
-
-{% if account_cart_rows %}
-    <div class="d-flex d-flex-row justify-content-center">
-        <table class="table table-striped table-hover table-bordered table-sm ledger-table-account-cart">
-            <thead class="ledger-table-th table-success">
-                <tr>
-                    <th scope="col">Дата</th>
-                    <th scope="col" colspan="2">Счет-корреспондент</th>
-                    <th scope="col">Приход</th>
-                    <th scope="col">Расход</th>
-                    <th scope="col">Сальдо</th>
-                </tr>
-                <tr>
-                    <th scope="row" colspan="5" class="ledger-table-total-text">Начальное сальдо:</th>
-                    <th scope="row" class="ledger-table-amount">{{ initial_state.balance }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in account_cart_rows %}
+    {# ------- ЛОКАЛЬНОЕ МЕНЮ ------- #}
+    {% include 'ledger/includes/_nav_table.html' %}
+    {# ------- ОТОБРАЖЕНИЕ ОТЧЕТА ------- #}
+    {% if account_cart_rows %}
+        <div class="d-flex d-flex-row justify-content-center">
+            <table class="table table-striped table-hover table-bordered table-sm ledger-table-account-cart">
+                <thead class="ledger-table-th table-success">
                     <tr>
-                        <td scope="row" class="ledger-table-date">{{ row.account_date|date:'d.m.Y' }}</td>
-                        <td class="ledger-table-number">{{ row.correspondent_account_number }}</td>
-                        <td class="ledger-table-text">{{ row.correspondent_account_name }}</td>
-
-                        {% if row.arrival != '0' %}
-                            <td class="ledger-table-amount">{{ row.arrival }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-
-                        {% if row.expense != '0' %}
-                            <td class="ledger-table-amount">{{ row.expense }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endif %}
-                        <td class="ledger-table-amount">{{ row.current_balance }}</td>
+                        <th scope="col">Дата</th>
+                        <th scope="col" colspan="2">Счет-корреспондент</th>
+                        <th scope="col">Приход</th>
+                        <th scope="col">Расход</th>
+                        <th scope="col">Сальдо</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-            <tfoot class="ledger-table-th table-success">
-                <tr>
-                    <th scope="row" colspan="3" class="ledger-table-total-text">Обороты за период:</th>
-                    <th class="ledger-table-amount">{{ turnover_for_the_period.arrival }}</th>
-                    <th class="ledger-table-amount">{{ turnover_for_the_period.expense }}</th>
-                    <th class="ledger-table-amount">{{ turnover_for_the_period.balance }}</th>
-                </tr>
-                <tr>
-                    <th scope="row" colspan="5" class="ledger-table-total-text">Конечное сальдо:</th>
-                    <th colspan="2" class="ledger-table-amount">
-                        {{ balance }}
-                    </th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-{% else %}
-    <div class="d-flex d-flex-row justify-content-center">
-        {% include 'includes/_cart_info.html' %}
-    </div>
-{% endif %}
+                    <tr>
+                        <th scope="row" colspan="5" class="ledger-table-total-text">Начальное сальдо:</th>
+                        <th scope="row" class="ledger-table-amount">{{ initial_state.balance }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in account_cart_rows %}
+                        <tr>
+                            <td scope="row" class="ledger-table-date">{{ row.account_date|date:'d.m.Y' }}</td>
+                            <td class="ledger-table-number">{{ row.correspondent_account_number }}</td>
+                            <td class="ledger-table-text">{{ row.correspondent_account_name }}</td>
 
-<div class="d-flex d-flex-row justify-content-center mt-2">
-    {% if request.META.HTTP_REFERER %}
-        {% include 'ledger/includes/_btn_back.html' %}
+                            {% if row.arrival != '0' %}
+                                <td class="ledger-table-amount">{{ row.arrival }}</td>
+                            {% else %}
+                                <td></td>
+                            {% endif %}
+
+                            {% if row.expense != '0' %}
+                                <td class="ledger-table-amount">{{ row.expense }}</td>
+                            {% else %}
+                                <td></td>
+                            {% endif %}
+                            <td class="ledger-table-amount">{{ row.current_balance }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot class="ledger-table-th table-success">
+                    <tr>
+                        <th scope="row" colspan="3" class="ledger-table-total-text">Обороты за период:</th>
+                        <th class="ledger-table-amount">{{ turnover_for_the_period.arrival }}</th>
+                        <th class="ledger-table-amount">{{ turnover_for_the_period.expense }}</th>
+                        <th class="ledger-table-amount">{{ turnover_for_the_period.balance }}</th>
+                    </tr>
+                    <tr>
+                        <th scope="row" colspan="5" class="ledger-table-total-text">Конечное сальдо:</th>
+                        <th colspan="2" class="ledger-table-amount">
+                            {{ balance }}
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    {% else %}
+        {# ------- СООБЩЕНИЕ, ЕСЛИ ПО СЧЕТУ НЕТ ПРОВОДОК ------- #}
+        <div class="d-flex d-flex-row justify-content-center">
+            {% include 'includes/_cart_info.html' %}
+        </div>
     {% endif %}
-</div>
-
+    {# ------- КНОПКА НАЗАД ------- #}
+    <div class="d-flex d-flex-row justify-content-center mt-2">
+        {% if request.META.HTTP_REFERER %}
+            {% include 'ledger/includes/_btn_back.html' %}
+        {% endif %}
+    </div>
 {% endblock %}

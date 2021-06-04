@@ -1,9 +1,13 @@
 {% load static %}
+{# ------- УПРАВЛЯЮЩИЕ КНОПКИ, для многократного использования в формах ------- #}
 <div class="d-flex justify-content-end">
+    {# ------- КНОПКА УДАЛИТЬ ------- #}
     <button class="btn btn-outline-danger mx-1" type="submit">
         <img src="{% static 'balukaa/images/x-square.svg' %}">
         <span class="mx-1">Удалить</span>
     </button>
+    {# ------- КНОПКА ОТМЕНИТЬ ------- #}
+    {# TODO: добавить картинку cancel.svg #}
     <a  type="button"
         class="btn btn-outline-primary mx-1"
         {% if request.META.HTTP_REFERER %}

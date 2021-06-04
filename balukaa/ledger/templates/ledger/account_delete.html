@@ -1,33 +1,31 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block title %}{{ title }}{{ block.super }}{% endblock %}
-
 {% block content %}
-
-{% include 'ledger/includes/_nav_table.html' %}
-
-<div class="d-flex justify-content-center">
-    {% if account.get_refs == 0 %}
-    <div class="card mb-3 ledger-cart">
-        <div class="row g-0">
-            <div class="col-md-4">
-                <img class="p-5" src="{% static 'balukaa/images/x-square.svg' %}" width="100%">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <form action="" method="post">{% csrf_token %}
-                        <h6 class="text-danger">Вы уверены, что хотите удалить счет?</h6>
-                        <p class="text-primary">{{ account }}</p>
-                        {% include 'ledger/includes/_btn_delete_cancel.html' %}
-                    </form>
+    {# ------- ЛОКАЛЬНОЕ МЕНЮ ------- #}
+    {% include 'ledger/includes/_nav_table.html' %}
+    {# ------- ФОРМА УДАЛЕНИЯ ------- #}
+    <div class="d-flex justify-content-center">
+        {% if account.get_refs == 0 %}
+        <div class="card mb-3 ledger-cart">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img class="p-5" src="{% static 'balukaa/images/x-square.svg' %}" width="100%">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <form action="" method="post">{% csrf_token %}
+                            <h6 class="text-danger">Вы уверены, что хотите удалить счет?</h6>
+                            <p class="text-primary">{{ account }}</p>
+                            {% include 'ledger/includes/_btn_delete_cancel.html' %}
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
+        {% else %}
+            {# ------- СООБЩЕНИЕ, ЧТО СЧЕТ УДАЛИТЬ НЕЛЬЗЯ, ЕСЛИ ПО НЕМУ ЕСТЬ ПРОВОДКИ ------- #}
+            {% include 'includes/_cart_info.html' %}
+        {% endif %}
     </div>
-    {% else %}
-        {% include 'includes/_cart_info.html' %}
-    {% endif %}
-</div>
-
 {% endblock %}

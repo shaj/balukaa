@@ -1,9 +1,15 @@
 {% load static %}
 <nav class="navbar navbar-sm navbar-expand-sm navbar-light bg-light p-0 px-md-4 mb-2 border-bottom shadow-sm">
     <div class="container-fluid">
+        {# ------- НАИМЕНОВАНИЕ СТРАНИЦЫ ------- #}
+        {# TODO: может быть стоит разделить title и наименование, для возможности задавать их раздельно #}
+        {# TODO: заменить тег code на другой тег с соответствующим классом для форматирования #}
         <span class="navbar-text">
             <code>{{ title }}</code>
         </span>
+        {# ------- КНОПКА ЛОКАЛЬНОЙ НАВИГАЦИИ, к которой можно подключать их views разные ссылки ------- #}
+        {# ------- пока используется для перехода в справочники и журналы из записей ------- #}
+        {# TODO: сделать полноценное локальное меню #}
         <ul class="navbar-nav d-flex">
             <li class="nav-item">
                 <a type="button"

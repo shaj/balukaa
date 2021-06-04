@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block title %}{{ title }}{{ block.super }}{% endblock %}
-
 {% block content %}
-
-{% include 'ledger/includes/_nav_table.html' %}
-<div class="d-flex justify-content-center">
-    <div class="card bg-light mb-3 ledger-cart">
-        <div class="card-body">
-            <form method="post">{% csrf_token %}
-                {{ form.as_table }}
-                {% include 'ledger/includes/_btn_save_cancel.html' %}
-            </form>
+    {# ------- ЛОКАЛЬНОЕ МЕНЮ ------- #}
+    {% include 'ledger/includes/_nav_table.html' %}
+    {# ------- ФОРМА ------- #}
+    {# TODO: верификация #}
+    <div class="d-flex justify-content-center">
+        <div class="card bg-light mb-3 ledger-cart">
+            <div class="card-body">
+                <form method="post">{% csrf_token %}
+                    {{ form.as_table }}
+                    {% include 'ledger/includes/_btn_save_cancel.html' %}
+                </form>
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}
