@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from userapp.views import NewUserView, LedgerLoginView
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LogoutView
 
 
 urlpatterns = [
@@ -28,9 +28,9 @@ urlpatterns = [
     path("register/", NewUserView.as_view()),
     path("login/", LedgerLoginView.as_view()),
     path("logout/", LogoutView.as_view()),
-    path("__debug__/", include(debug_toolbar.urls)),
 ]
 
 
 if settings.DEBUG:
+    urlpatterns += (path("__debug__/", include(debug_toolbar.urls)),)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

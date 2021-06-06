@@ -1,6 +1,9 @@
 
 # TODO
 
+- Отчет по покрытию в github actions
+- 
+
 - Посмотреть внимательно:
    - [Blazing fast CI with GitHub Actions, Poetry, Black and Pytest](https://medium.com/@vanflymen/blazing-fast-ci-with-github-actions-poetry-black-and-pytest-9e74299dd4a5)
    - [snok/install-poetry@v1.1.4](https://github.com/marketplace/actions/install-poetry-action)
@@ -32,7 +35,12 @@
 
 ## Замечания по проектной работе
 
-1. [дебаг тулбар лучше подключать только в дебаг режиме](https://github.com/shaj/balukaa/blob/OTUS/balukaa/balukaa/urls.py#L31)
+1. ✓ [дебаг тулбар лучше подключать только в дебаг режиме](https://github.com/shaj/balukaa/blob/OTUS/balukaa/balukaa/urls.py#L31)
+   - https://www.reddit.com/r/django/comments/mdk6at/deploying_and_maintaining_a_django_app_in/
+      - https://appliku.com/post/django-project-tutorial-beginners-settings-docker
+      - `python manage.py check --deploy`
+      - Scan your website from [here](https://securityheaders.com/) to check the security headers. Make sure your website score is A+ and try integrate all those headers that are missing.
+      - 
 2. [все лишние комментарии лучше удалить из проекта](https://github.com/shaj/balukaa/blob/OTUS/balukaa/ledger/admin.py#L5)
 3. [и неиспользуемый код тоже :)](https://github.com/shaj/balukaa/blob/OTUS/balukaa/ledger/forms.py#L17)
 4. [все методы и функции в пайтоне принято именовать в snake_case](https://github.com/shaj/balukaa/blob/OTUS/balukaa/ledger/models.py#L15)

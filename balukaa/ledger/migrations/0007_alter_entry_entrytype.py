@@ -6,13 +6,21 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('ledger', '0006_auto_20210429_1604'),
+        ("ledger", "0006_auto_20210429_1604"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='entry',
-            name='entryType',
-            field=models.CharField(choices=[('-+', 'Перетекание'), ('++', 'Увеличение'), ('--', 'Уменьшение')], default='++', max_length=2),
+            model_name="entry",
+            name="entryType",
+            field=models.CharField(
+                choices=[
+                    ("-+", "Перетекание"),
+                    ("++", "Увеличение"),
+                    ("--", "Уменьшение"),
+                ],
+                default="++",
+                max_length=2,
+            ),
         ),
     ]

@@ -1,6 +1,5 @@
 from datetime import date
 from decimal import Decimal
-from pprint import pprint
 
 from django.test import TestCase
 from django.utils import timezone
