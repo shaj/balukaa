@@ -2,20 +2,18 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" href="{%  static 'balukaa/favicon.ico' %}">
-  <link rel="stylesheet" href="{% static 'balukaa/bootstrap/css/bootstrap.min.css' %}" type="text/css" media="screen">
-  <link rel="stylesheet" href="{% static 'balukaa/css/balukaa.css' %}" type="text/css" media="screen">
-  <title>{% block title %} : Балукаа{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{%  static 'balukaa/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'balukaa/bootstrap/css/bootstrap.min.css' %}" type="text/css" media="screen">
+    <link rel="stylesheet" href="{% static 'balukaa/css/balukaa.css' %}" type="text/css" media="screen">
+    <title>{% block title %} : Балукаа{% endblock %}</title>
 </head>
 <body>
-  {# ------- ГЛАВНОЕ МЕНЮ ------- #}
-  {% include 'includes/_nav_main.html' %}
-  <div class="container">
-    {# ------- СОДЕРЖИМОЕ ------ #}
-    {% block content %}{% endblock %}
-  </div>
-  <script src="{% static 'balukaa/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+{# ------- ГЛАВНОЕ МЕНЮ ------- #}
+{% include 'includes/_nav_main.html' %}
+{# ------- СОДЕРЖИМОЕ ------ #}
+{% block content %}{% endblock %}
+    <script src="{% static 'balukaa/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>

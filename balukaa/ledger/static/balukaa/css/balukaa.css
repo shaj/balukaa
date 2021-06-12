@@ -40,7 +40,7 @@ table {
     font-family: var(--bs-font-sans-serif);
 }
 
-.ledger-table-comment {
+.bk-comment, .ledger-table-comment {
     text-align: left;
     font-family: var(--bs-font-sans-serif);
     font-size: 0.92em;
@@ -63,14 +63,6 @@ table {
     width: 10%;
 }
 
-/*
-img.ledger-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-*/
-
 span.strong {
     font-weight: bolder;
     color: black;
@@ -82,7 +74,38 @@ span.incline {
 
 span.entity {
     font-weight: bolder;
-    font-size: 0.9em;
+    font-size: 0.9rem;
     color: blue;
 }
 
+.bk-table > .row > .col-lg, .bk-table > .row > [class^="col-lg"], .bk-table > .row > .bk-tbl-header {
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+}
+
+.bk-table > .row > .col-lg, .bk-table > .row > [class^="col-lg"] {
+    border: solid #eee;
+    border-width: 1px 1px 0px 0px;
+    line-height: 1;
+}
+
+.bk-table > .row {
+    border: solid #eee;
+    border-width: 0px 0px 0px 1px;
+}
+
+.bk-tbl-header {
+    background-color: #d1e7dd;
+    color: black;
+    font-weight: bolder;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.bk-row1 {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+/*
+.bk-table .bk-row2 {
+}
+*/

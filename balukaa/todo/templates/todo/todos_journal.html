@@ -2,60 +2,42 @@
 {% load static %}
 {% block title %}{{ title }}{{ block.super }}{% endblock %}
 {% block content %}
-    {# ------- ЛОКАЛЬНОЕ МЕНЮ ------- #}
-    {% include 'ledger/includes/_nav_table.html' %}
-    {# ------- ОТОБРАЖЕНИЕ ЖУРНАЛА ------- #}
-    {# TODO: Переделать c table на div flex #}
-    <div class="d-flex justify-content-center">
-        {% if todos %}
-        <table class="table table-striped table-hover table-bordered table-sm">
-            <thead class="ledger-table-th table-success">
-                <tr>
-                    <th scope="col"><code title="Состояние задачи">?</code></th>
-                    <th scope="col">Дата</th>
-                    <th scope="col">Задача</th>
-                    <th scope="col">Описание</th>
-                    <th scope="col"><code>Комментарий</code></th>
-                    <th scope="col"><code>Кто</code></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for todo in todos reversed %}
-                <tr>
-                    <td class="ledger-table-comment">
-                        <code data-toggle="tooltip"
-                              data-placement="right"
-                              title="{{ todo.get_status_display }}"
-                        >
-                            {% if todo.status %}
-                                <img src="{% static 'balukaa/images/toggle-on.svg' %}">
-                            {% else %}
-                                <img src="{% static 'balukaa/images/toggle-off.svg' %}">
-                            {% endif %}
-                        </code>
-                    </td>
-                    <td class="ledger-table-date">
-                        {{ todo.date_range_map|safe }}
-                    </td>
-                    <td class="ledger-table-text">
-                        {{ todo.task_map|safe }}
-                    </td>
-                    <td class="ledger-table-text">
-                        {{ todo.description_map|safe }}
-                    </td>
-                    <td class="ledger-table-comment">
-                        {{ todo.comment_map|safe }}
-                    </td>
-                    <td class="ledger-table-comment">
-                        {{ todo.creator_map|safe }}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-            {# ------- СООБЩЕНИЕ, ЕСЛИ НЕТ ЗАПИСЕЙ ------- #}
-            {% include 'includes/_cart_info.html' %}
-        {% endif %}
+<div class="container bk-table">
+{# ------- ЛОКАЛЬНОЕ МЕНЮ ------- #}
+{% include 'ledger/includes/_nav_table.html' %}
+{# ------- ОТОБРАЖЕНИЕ ЖУРНАЛА ------- #}
+{% if todos %}
+    {# ------- ЗАГОЛОВОК ТАБЛИЦЫ ------- #}
+    <div class="row bk-tbl-header">
+        <div class="col-lg-auto" title="Состояние задачи">
+            <img src="{% static 'balukaa/images/toggle-on.svg' %}">
+        </div>
+        <div class="col-lg-1">Дата</div>
+        <div class="col-lg-2">Задача</div>
+        <div class="col-lg-4">Описание</div>
+        <div class="col-lg">Комментарий</div>
+        <div class="col-lg-1" title="Разработчик">
+            <img src="{% static 'balukaa/images/people-fill.svg' %}">
+        </div>
     </div>
+    {% for todo in todos reversed %}
+    {# ------- ТЕЛО ТАБЛИЦЫ ------- #}
+    <div class="row {% cycle 'bk-row1' 'bk-row2' %}">
+        <div class="col-lg-auto" data-toggle="tooltip" data-placement="right" title="{{ todo.get_status_display }}">
+            {% if todo.status %}<img src="{% static 'balukaa/images/toggle-on.svg' %}">
+            {% else %}<img src="{% static 'balukaa/images/toggle-off.svg' %}">
+            {% endif %}
+        </div>
+        <div class="col-lg-1">{{ todo.date_range_map|safe }}</div>
+        <div class="col-lg-2">{{ todo.task_map|safe }}</div>
+        <div class="col-lg-4">{{ todo.description_map|safe }}</div>
+        <div class="col-lg bk-comment">{{ todo.comment_map|safe }}</div>
+        <div class="col-lg-1 bk-comment">{{ todo.creator_map|safe }}</div>
+    </div>
+    {% endfor %}
+{% else %}
+    {# ------- СООБЩЕНИЕ, ЕСЛИ НЕТ ЗАПИСЕЙ ------- #}
+    {% include 'includes/_cart_info.html' %}
+{% endif %}
+</div>
 {% endblock %}
