@@ -36,16 +36,15 @@ class TestEntries(TestCase):
             )
 
     def test_main_one(self):
-        et = LedgerEntry.objects.create(
-            name='Выплата поставщику',
+        LedgerEntry.objects.create(
             date=date(2021, 1, 11),
             account_one=self.accounts['50'],  # Касса
             account_two=self.accounts['60'],  # Поставщики
             type=LedgerEntry.EntryTypes.FALL.value,
             amount=500.00,
-            status=False,
-            created_at=timezone.now(),
-            updated_at=timezone.now(),
+            status=False
+            # created_at=timezone.now(),
+            # updated_at=timezone.now(),
         )
         self.assertEqual(LedgerEntry.objects.count(), 1)
 
@@ -98,19 +97,19 @@ class TestAccountCard(TestCase):
                 number=el[0],
                 name=el[1],
                 full_name=el[2],
-                is_active=el[3]
+                type=el[3]
             )
 
     def test_initdb(self):
         for el in ENTRIES1:
             LedgerEntry.objects.create(
-                name=el[0],
-                date=el[1],
-                account_one=self.accounts[el[2]],
-                account_two=self.accounts[el[3]],
-                type=el[4],
-                amount=el[5],
-                is_active=el[6]
+                date=el[0],
+                account_one=self.accounts[el[1]],
+                account_two=self.accounts[el[2]],
+                type=el[3],
+                amount=el[4],
+                comment=el[5],
+                status=el[6]
             )
 
         self.assertEqual(LedgerEntry.objects.count(), len(ENTRIES1))
@@ -139,17 +138,17 @@ class TestACard_Entries1(TestCase):
                 number=el[0],
                 name=el[1],
                 full_name=el[2],
-                is_active=el[3]
+                type=el[3]
             )
         for el in ENTRIES1:
             LedgerEntry.objects.create(
-                name=el[0],
-                date=el[1],
-                account_one=self.accounts[el[2]],
-                account_two=self.accounts[el[3]],
-                type=el[4],
-                amount=el[5],
-                is_active=el[6]
+                date=el[0],
+                account_one=self.accounts[el[1]],
+                account_two=self.accounts[el[2]],
+                type=el[3],
+                amount=el[4],
+                comment=el[5],
+                status=el[6]
             )
 
     def test_balance_output_format(self):
@@ -258,17 +257,17 @@ class TestACard_Entries2(TestCase):
                 number=el[0],
                 name=el[1],
                 full_name=el[2],
-                is_active=el[3]
+                type=el[3]
             )
         for el in ENTRIES2:
             LedgerEntry.objects.create(
-                name=el[0],
-                date=el[1],
-                account_one=self.accounts[el[2]],
-                account_two=self.accounts[el[3]],
-                type=el[4],
-                amount=el[5],
-                is_active=el[6]
+                date=el[0],
+                account_one=self.accounts[el[1]],
+                account_two=self.accounts[el[2]],
+                type=el[3],
+                amount=el[4],
+                comment=el[5],
+                status=el[6]
             )
 
     def test_balance_datelimit_51(self):
@@ -281,8 +280,8 @@ class TestACard_Entries2(TestCase):
         }
         self.assertDictEqual(balance, d)
 
-    def test_balance_datelimit_75(self):
-        balance = self.accounts['75'].get_remains(date(2021, 1, 17), date(2021, 3, 11))
+    def test_balance_datelimit_67(self):
+        balance = self.accounts['67'].get_remains(date(2021, 1, 17), date(2021, 3, 11))
         # pprint(balance)
         d = {
             'arrival': Decimal('0.00'),
