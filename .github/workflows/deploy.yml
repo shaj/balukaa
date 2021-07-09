@@ -53,13 +53,14 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKER_HUB_USERNAME }}/balukaa:latest 
-            # ${{ secrets.DOCKER_HUB_USERNAME }}/balukaa:${{ steps.vars.outputs.branch }}.${{ steps.vars.outputs.sha_short }}
-            ${{ secrets.DOCKER_HUB_USERNAME }}/balukaa:${{ steps.extract_branch.outputs.branch }}.${{ steps.vars.outputs.sha_short }}
+            ${{ secrets.DOCKER_HUB_USERNAME }}/balukaa:latest
+            ${{ secrets.DOCKER_HUB_USERNAME }}/balukaa:${{ steps.vars.outputs.sha_short }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
+            # ${{ secrets.DOCKER_HUB_USERNAME }}/balukaa:${{ steps.vars.outputs.branch }}.${{ steps.vars.outputs.sha_short }}
+            # ${{ secrets.DOCKER_HUB_USERNAME }}/balukaa:${{ steps.extract_branch.outputs.branch }}.${{ steps.vars.outputs.sha_short }}
   # echo:
   #   runs-on: ubuntu-latest
   #   environment:
