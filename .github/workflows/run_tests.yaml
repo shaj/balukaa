@@ -19,6 +19,8 @@ jobs:
         # Provide the password for postgres
         env:
           POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: user
+          POSTGRES_DB: balukaa
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
@@ -50,6 +52,9 @@ jobs:
           POSTGRES_HOST: postgres
           # The default PostgreSQL port
           POSTGRES_PORT: 5432
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: user
+          POSTGRES_DB: balukaa
           BALUKAA_SECRET_KEY: 'b3cxoihd-v()uwa6+#721=j3q80y(e8(mz6iv68&c=9*so_3oj'
         run: |
           cd balukaa
