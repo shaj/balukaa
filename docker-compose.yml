@@ -22,6 +22,7 @@ services:
     command: gunicorn --bind 0.0.0.0:8080 balukaa.asgi:application -k uvicorn.workers.UvicornWorker
     env_file: 
       - docker.env
+      - pg.env
     ports:
       - 8080:8080
     # volumes:
