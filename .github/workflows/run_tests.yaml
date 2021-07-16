@@ -8,10 +8,25 @@ on:
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
+    # container: node:10.18-jessie
+
+    # Service containers to run with `container-job`
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
-      - uses: harmon758/postgresql-action@v1
-        with:
-          postgresql version: '11'
       - uses: actions/checkout@v2
       - name: Set up Python 3
         uses: actions/setup-python@v2
@@ -31,6 +46,10 @@ jobs:
           poetry install
       - name: Run pytest
         env: 
+          # The hostname used to communicate with the PostgreSQL service container
+          POSTGRES_HOST: postgres
+          # The default PostgreSQL port
+          POSTGRES_PORT: 5432
           BALUKAA_SECRET_KEY: 'b3cxoihd-v()uwa6+#721=j3q80y(e8(mz6iv68&c=9*so_3oj'
         run: |
           cd balukaa

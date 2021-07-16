@@ -1,7 +1,7 @@
 version: "3.5"
 
 services:
-  postgres:
+  pg:
     image: postgres:11
     env_file: 
       - pg.env
